@@ -39,33 +39,28 @@ const tasks = [
 // // // table head data and table body data for Tables view
 // #############################
 
-const thead = ["Name", "Country", "City", "Salary"];
+const thead = ["Prénom", "Nom", "Email", "Départment"];
 const tbody = [
   {
     className: "table-success",
-    data: ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"]
+    data: ["Safaa", "Menad", "gs_menad@esi.dz", "Event"]
   },
   {
     className: "",
-    data: ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"]
+    data: ["Abd errahmen", "Tlili", "ha_tlili@esi.dz", "Event"]
   },
   {
     className: "table-info",
-    data: ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"]
+    data: ["Samy", "Nehlil", "im_nehlil@esi.dz", "Relex"]
   },
   {
     className: "",
-    data: ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"]
+    data: ["Mohammed Nassim", "Sehdi",	"hm_sehdi@esi.dz", "Dev"]
   },
   {
     className: "table-danger",
-    data: ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"]
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
   },
-  { className: "", data: ["Mason Porter", "Chile", "Gloucester", "$78,615"] },
-  {
-    className: "table-warning",
-    data: ["Jon Porter", "Portugal", "Gloucester", "$98,615"]
-  }
 ];
 
 // tasks list for Tasks card in Dashboard view

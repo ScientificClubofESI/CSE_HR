@@ -43,7 +43,7 @@ class RegularTables extends React.Component {
             <Col xs={12}>
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Simple Table</CardTitle>
+                  <CardTitle tag="h4">CSE all members</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <Table responsive>
@@ -52,7 +52,7 @@ class RegularTables extends React.Component {
                         {thead.map((prop, key) => {
                           if (key === thead.length - 1)
                             return (
-                              <th key={key} className="text-right">
+                              <th key={key} className="text-left">
                                 {prop}
                               </th>
                             );
@@ -67,7 +67,7 @@ class RegularTables extends React.Component {
                             {prop.data.map((prop, key) => {
                               if (key === thead.length - 1)
                                 return (
-                                  <td key={key} className="text-right">
+                                  <td key={key} className="text-left">
                                     {prop}
                                   </td>
                                 );
@@ -81,6 +81,7 @@ class RegularTables extends React.Component {
                 </CardBody>
               </Card>
             </Col>
+            {/*
             <Col xs={12}>
               <Card className="card-plain">
                 <CardHeader>
@@ -122,7 +123,7 @@ class RegularTables extends React.Component {
                   </Table>
                 </CardBody>
               </Card>
-            </Col>
+            </Col> */}
           </Row>
         </div>
       </>

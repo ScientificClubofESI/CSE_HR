@@ -22,7 +22,7 @@ import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
-import logo from "logo-white.svg";
+import logo from "../../assets/img/cse.png";
 
 var ps;
 
@@ -33,6 +33,9 @@ class Sidebar extends React.Component {
   }
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
+    console.log(this.props.location.pathname)
+    console.log(routeName)
+    console.log(this.props.location.pathname.indexOf(routeName))
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
   componentDidMount() {
@@ -53,21 +56,23 @@ class Sidebar extends React.Component {
       <div className="sidebar" data-color={this.props.backgroundColor}>
         <div className="logo">
           <a
-            href="https://www.creative-tim.com?ref=nudr-sidebar"
+            href="https://cse.club/"
             className="simple-text logo-mini"
             target="_blank"
           >
             <div className="logo-img">
-              <img src={logo} alt="react-logo" />
+              <img src={logo} alt="cse-logo" />
             </div>
           </a>
           <a
-            href="https://www.creative-tim.com?ref=nudr-sidebar"
+            href="https://cse.club/"
             className="simple-text logo-normal"
             target="_blank"
+            style={{fontSize: "40px"}}
           >
-            Creative Tim
+            CSE HR
           </a>
+          <br/>
         </div>
         <div className="sidebar-wrapper" ref="sidebar">
           <Nav>
@@ -81,6 +86,7 @@ class Sidebar extends React.Component {
                   }
                   key={key}
                 >
+                {console.log()}
                   <NavLink
                     to={prop.layout + prop.path}
                     className="nav-link"

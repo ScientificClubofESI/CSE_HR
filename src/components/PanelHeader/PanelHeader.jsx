@@ -29,6 +29,7 @@ class PanelHeader extends React.Component {
         }
       >
         {this.props.content}
+        {console.log(this.props.content)}
       </div>
     );
   }

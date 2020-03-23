@@ -37,6 +37,7 @@ class Dashboard extends React.Component {
     backgroundColor: "blue"
   };
   mainPanel = React.createRef();
+
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.mainPanel.current);
@@ -67,7 +68,7 @@ class Dashboard extends React.Component {
           backgroundColor={this.state.backgroundColor}
         />
         <div className="main-panel" ref={this.mainPanel}>
-          <DemoNavbar {...this.props} />
+         <DemoNavbar {...this.props} />
           <Switch>
             {routes.map((prop, key) => {
               return (
@@ -82,10 +83,11 @@ class Dashboard extends React.Component {
           </Switch>
           <Footer fluid />
         </div>
+        {/*
         <FixedPlugin
           bgColor={this.state.backgroundColor}
           handleColorClick={this.handleColorClick}
-        />
+        />*/}
       </div>
     );
   }
