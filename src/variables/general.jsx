@@ -61,6 +61,62 @@ const tbody = [
     className: "table-danger",
     data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
   },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
+  {
+    className: "table-danger",
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+  },
 ];
 
 // tasks list for Tasks card in Dashboard view

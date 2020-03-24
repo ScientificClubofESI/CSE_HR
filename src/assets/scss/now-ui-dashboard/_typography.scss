@@ -94,10 +94,10 @@ p{
 }
 .category,
 .card-category{
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     font-weight: $font-weight-normal;
     color: $dark-gray;
-    font-size: $font-size-mini;
+    font-size: $font-paragraph;
 }
 
 .card-category{
