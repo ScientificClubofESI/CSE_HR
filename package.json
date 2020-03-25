@@ -18,6 +18,7 @@
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
     "react-scripts": "3.0.1",
+    "react-switch": "^5.0.1",
     "reactstrap": "8.0.0"
   },
   "scripts": {

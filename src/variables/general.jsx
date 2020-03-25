@@ -43,80 +43,45 @@ const thead = ["Prénom", "Nom", "Email", "Départment"];
 const tbody = [
   {
     className: "table-success",
-    data: ["Safaa", "Menad", "gs_menad@esi.dz", "Event"]
+    data: ["Safaa", "Menad", "gs_menad@esi.dz", "Événementiel et formations", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "",
-    data: ["Abd errahmen", "Tlili", "ha_tlili@esi.dz", "Event"]
+    data: ["Abd errahmen", "Tlili", "ha_tlili@esi.dz", "Événementiel et formations", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "table-info",
-    data: ["Samy", "Nehlil", "im_nehlil@esi.dz", "Relex"]
+    data: ["Samy", "Nehlil", "im_nehlil@esi.dz", "Relex", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "",
-    data: ["Mohammed Nassim", "Sehdi",	"hm_sehdi@esi.dz", "Dev"]
+    data: ["Mohammed Nassim", "Sehdi",	"hm_sehdi@esi.dz", "Dev", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Événementiel et formations", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Événementiel et formations", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Événementiel et formations", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Événementiel et formations", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Événementiel et formations", "Ancien", "0553623224", "HRM"]
   },
   {
     className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
+    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Événementiel et formations", "Ancien", "0553623224", "HRM"]
   },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
-  {
-    className: "table-danger",
-    data: ["Oussama",	"Kherroubi", "ho_kherroubi@esi.dz", "Event"]
-  },
+ 
 ];
 
 // tasks list for Tasks card in Dashboard view

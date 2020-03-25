@@ -72,6 +72,7 @@
     color: #FFFFFF;
 }
 
+/* Table style */
 table {
     overflow: hidden;
   }
@@ -83,9 +84,15 @@ td {
 tbody tr:hover {
     position: relative;
     background-color: #fa764b;
-    cursor: pointer;
     width: 100%;
     height: 100%;
     z-index: -1;
     box-shadow: 0px 9px 4px -6px grey;
   }
+
+/* Modal style, scroll */
+  .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    overflow-x: auto;
+}
