@@ -5,6 +5,7 @@
   "private": true,
   "homepage": "https://demos.creative-tim.com/now-ui-dashboard-react/#/",
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap": "4.3.1",
     "chart.js": "2.8.0",
     "history": "4.9.0",
@@ -19,7 +20,8 @@
     "react-router-dom": "5.0.0",
     "react-scripts": "3.0.1",
     "react-switch": "^5.0.1",
-    "reactstrap": "8.0.0"
+    "reactstrap": "8.0.0",
+    "tabletop": "^1.6.2"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -32,50 +32,25 @@ import {
   Form,
   Input,
   Badge,
+  UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle
 } from "reactstrap";
+
+//Manage requests
+import axios from 'axios'
 
 //Switch component
 import Switch from "react-switch"
 
 // core components
-import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
+import PanelHeader from "components/PanelHeader/PanelHeader.jsx"
 
-import { thead, tbody } from "variables/general";
+//API url
+import { API_URL } from '../api/api'
+
 
 class RegularTables extends React.Component {
   state = {
-    members: [
-      {
-        prenom: "Safaa",
-        nom: "Menad",
-        email: "gs_menad@esi.dz",
-        departement: "Événementiel et formations",
-        statu: "Ancien",
-        phoneNumber: "0553623224",
-        responsabilite: "HRM",
-        bureau: false
-      },
-      {
-        prenom: "Safaa",
-        nom: "Menad",
-        email: "gs_menad@esi.dz",
-        departement: "Événementiel et formations",
-        statu: "Ancien",
-        phoneNumber: "0553623224",
-        responsabilite: "HRM",
-        bureau: false
-      },
-      {
-        prenom: "Safaa",
-        nom: "Menad",
-        email: "gs_menad@esi.dz",
-        departement: "Événementiel et formations",
-        statu: "Ancien",
-        phoneNumber: "0553623224",
-        responsabilite: "HRM gddddddddddddddddddddddddddddddddddddddddddddd dgdgggggggggggggggg egegege",
-        bureau: false,
-      }
-    ],
+    members: [],
     memberData: {
       prenom: '',
       nom: '',
@@ -98,6 +73,14 @@ class RegularTables extends React.Component {
       bureau: false
     },
     editMemberModal: false,
+  }
+
+  componentDidMount() {
+    axios.get(`${API_URL}members`).then((response) => {
+      this.setState({
+        members: response.data
+      })
+    })
   }
 
   toggleMemberModal() {
@@ -134,6 +117,10 @@ class RegularTables extends React.Component {
     })
   }
 
+  deleteMemberData(member) {
+    alert("Voulez vous vraiment supprimer : " + member.prenom + " " + member.nom + " ?")
+  }
+
   render() {
     let members = this.state.members.map((member, index) => {
       return (
@@ -152,7 +139,9 @@ class RegularTables extends React.Component {
           >
             <i className="now-ui-icons ui-1_settings-gear-63"></i>
           </td>
-          <td style={{ cursor: "pointer" }}>
+          <td style={{ cursor: "pointer" }}
+            onClick={this.deleteMemberData.bind(this, member)}
+          >
             <i className="now-ui-icons ui-1_simple-remove"></i>
           </td>
         </tr>
@@ -160,7 +149,7 @@ class RegularTables extends React.Component {
     })
     return (
       <>
-        {/*Modal for showing one member's data */}
+        {/* Modal for showing one member's data */}
         <Modal className="modal-Body" isOpen={this.state.memberModal} toggle={this.toggleMemberModal.bind(this)}>
           <ModalHeader toggle={this.toggleMemberModal.bind(this)}>Détails du membre</ModalHeader>
           <ModalBody>
@@ -209,7 +198,7 @@ class RegularTables extends React.Component {
           </ModalFooter>
         </Modal>
 
-        {/*Modal for editing one member's data */}
+        {/* Modal for editing one member's data */}
         <Modal className="modal-Body" isOpen={this.state.editMemberModal} toggle={this.toggleEditMemberModal.bind(this)}>
           <ModalHeader toggle={this.toggleEditMemberModal.bind(this)} >Modifier les détails d'un membre</ModalHeader>
           <ModalBody>
@@ -222,7 +211,7 @@ class RegularTables extends React.Component {
                     placeholder="Prénom"
                     type="text"
                     onChange={(e) => {
-                      var {editMemberData} = this.state
+                      var { editMemberData } = this.state
                       editMemberData.prenom = e.target.value
                       this.setState({ editMemberData })
                     }}
@@ -334,20 +323,20 @@ class RegularTables extends React.Component {
             </Row>
             <Row>
               <Col xs={6}>
-              <h6>Fait partie du bureau ?</h6>
-              <Switch checked={this.state.editMemberData.bureau}
-                    onColor="#1be611"
-                    onChange={() => {
-                      var { editMemberData } = this.state
-                      editMemberData.bureau = !this.state.editMemberData.bureau
-                      this.setState({editMemberData})
-                    }}
-              />
+                <h6>Fait partie du bureau ?</h6>
+                <Switch checked={this.state.editMemberData.bureau}
+                  onColor="#1be611"
+                  onChange={() => {
+                    var { editMemberData } = this.state
+                    editMemberData.bureau = !this.state.editMemberData.bureau
+                    this.setState({ editMemberData })
+                  }}
+                />
               </Col>
               <Col xs={6}>
                 <h6></h6>
-                <FormGroup style={{position:"absolute", left:"50%"}}>
-                <Button color="warning" className="btn-round" onClick={this.toggleEditMemberModal.bind(this)}>Modifier !</Button>
+                <FormGroup style={{ position: "absolute", left: "50%" }}>
+                  <Button color="warning" className="btn-round" onClick={this.toggleEditMemberModal.bind(this)}>Modifier !</Button>
                 </FormGroup>
               </Col>
             </Row>
@@ -364,6 +353,23 @@ class RegularTables extends React.Component {
                 <CardHeader>
                   <CardTitle tag="h4">CSE all members</CardTitle>
                   <p className="category"> Veuillez cliquer sur un membre donné pour avoir plus de détails.</p>
+                  <Row>
+                    <Col xs={4}>
+                      <UncontrolledButtonDropdown>
+                        <DropdownToggle caret>Filter</DropdownToggle>
+                        <DropdownMenu>
+                          <DropdownItem >Event</DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem>Design</DropdownItem>
+                          <DropdownItem divider />
+                          <DropdownItem>Communication</DropdownItem>
+                        </DropdownMenu>
+                      </UncontrolledButtonDropdown>
+                    </Col>
+                    <Col xs={4}>
+                    <i style={{ position: "relative", left: "50px", top: "20px",fontSize: "25px" }} className="now-ui-icons arrows-1_cloud-download-93"></i>
+                    </Col>
+                  </Row>
                 </CardHeader>
                 <CardBody>
                   <Table responsive>
