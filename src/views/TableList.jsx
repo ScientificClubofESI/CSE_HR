@@ -75,7 +75,11 @@ class RegularTables extends React.Component {
     editMemberModal: false,
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    this.refreshMembers()
+  }
+
+  refreshMembers() {
     axios.get(`${API_URL}members`).then((response) => {
       this.setState({
         members: response.data
@@ -112,8 +116,21 @@ class RegularTables extends React.Component {
 
   editMemberData(data) {
     this.setState({
-      editMemberData: data,
-      editMemberModal: !this.state.memberModal
+      editMemberData: {...data},
+      editMemberModal: !this.state.editMemberModal
+    }, () => {})
+  }
+
+  updateMember(event) {
+    event.preventDefault()
+    const member = this.state.editMemberData
+    axios.put(`${API_URL}members/edit/` + member._id, {member})
+    .then(() => {
+      this.setState({
+        editMemberModal: false,
+        editMemberData: ""
+      })
+      this.refreshMembers()
     })
   }
 
@@ -336,7 +353,7 @@ class RegularTables extends React.Component {
               <Col xs={6}>
                 <h6></h6>
                 <FormGroup style={{ position: "absolute", left: "50%" }}>
-                  <Button color="warning" className="btn-round" onClick={this.toggleEditMemberModal.bind(this)}>Modifier !</Button>
+                  <Button color="warning" className="btn-round" onClick={this.updateMember.bind(this)}>Modifier !</Button>
                 </FormGroup>
               </Col>
             </Row>
@@ -367,7 +384,7 @@ class RegularTables extends React.Component {
                       </UncontrolledButtonDropdown>
                     </Col>
                     <Col xs={4}>
-                    <i style={{ position: "relative", left: "50px", top: "20px",fontSize: "25px" }} className="now-ui-icons arrows-1_cloud-download-93"></i>
+                      <i style={{ position: "relative", left: "50px", top: "20px", fontSize: "25px" }} className="now-ui-icons arrows-1_cloud-download-93"></i>
                     </Col>
                   </Row>
                 </CardHeader>
