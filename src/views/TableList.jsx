@@ -116,26 +116,34 @@ class RegularTables extends React.Component {
 
   editMemberData(data) {
     this.setState({
-      editMemberData: {...data},
+      editMemberData: { ...data },
       editMemberModal: !this.state.editMemberModal
-    }, () => {})
+    }, () => { })
   }
 
   updateMember(event) {
     event.preventDefault()
     const member = this.state.editMemberData
-    axios.put(`${API_URL}members/edit/` + member._id, {member})
-    .then(() => {
-      this.setState({
-        editMemberModal: false,
-        editMemberData: ""
+    axios.put(`${API_URL}members/edit/` + member._id, { member })
+      .then(() => {
+        this.setState({
+          editMemberModal: false,
+          editMemberData: ""
+        })
+        this.refreshMembers()
       })
-      this.refreshMembers()
-    })
   }
 
   deleteMemberData(member) {
-    alert("Voulez vous vraiment supprimer : " + member.prenom + " " + member.nom + " ?")
+    let deleteMember = window.confirm("Voulez vous vraiment supprimer : " + member.prenom + " " + member.nom + " ?");
+    if (deleteMember) {
+      axios.delete(`${API_URL}members/delete/` + member._id)
+      .then((response) => {
+          this.refreshMembers()
+      })
+    } else {
+      alert(member.prenom + " " + member.nom + " n'a pas été supprimé !")
+    }
   }
 
   render() {
