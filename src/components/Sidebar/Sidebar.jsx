@@ -33,9 +33,6 @@ class Sidebar extends React.Component {
   }
   // verifies if routeName is the one active (in browser input)
   activeRoute(routeName) {
-    console.log(this.props.location.pathname)
-    console.log(routeName)
-    console.log(this.props.location.pathname.indexOf(routeName))
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
   componentDidMount() {
@@ -86,7 +83,6 @@ class Sidebar extends React.Component {
                   }
                   key={key}
                 >
-                {console.log()}
                   <NavLink
                     to={prop.layout + prop.path}
                     className="nav-link"

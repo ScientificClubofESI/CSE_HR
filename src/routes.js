@@ -23,6 +23,10 @@ import TableList from "views/TableList.jsx";
 import Maps from "views/Maps.jsx";
 import Upgrade from "views/Upgrade.jsx";
 import UserPage from "views/UserPage.jsx";
+import TableListAnciens from "views/TableListAnciens"
+import TableListNewbies from "views/TableListNewbies"
+import TableListAlumnis from "views/TableListAlumnis"
+import TableListBureau from "views/TableListBureau"
 
 var dashRoutes = [
   {
@@ -32,7 +36,7 @@ var dashRoutes = [
     component: Dashboard,
     layout: "/admin"
   },
-  {
+  /*{
     path: "/icons",
     name: "Icons",
     icon: "design_image",
@@ -52,29 +56,57 @@ var dashRoutes = [
     icon: "ui-1_bell-53",
     component: Notifications,
     layout: "/admin"
-  },
-  {
-    path: "/user-page",
-    name: "User Profile",
-    icon: "users_single-02",
-    component: UserPage,
-    layout: "/admin"
-  },
+  },*/
   {
     path: "/extended-tables",
-    name: "All Members",
+    name: "Tous Members",
     icon: "files_paper",
     component: TableList,
     layout: "/admin"
   },
   {
+    path: "/anciens",
+    name: "Anciens",
+    icon: "files_paper",
+    component: TableListAnciens,
+    layout: "/admin"
+  },
+  {
+    path: "/newbies",
+    name: "Newbies",
+    icon: "files_paper",
+    component: TableListNewbies,
+    layout: "/admin"
+  },
+  {
+    path: "/alumnis",
+    name: "Alumnis",
+    icon: "files_paper",
+    component: TableListAlumnis,
+    layout: "/admin"
+  },
+  {
+    path: "/bureau",
+    name: "Bureau",
+    icon: "files_paper",
+    component: TableListBureau,
+    layout: "/admin"
+  },
+  {
+    path: "/user-page",
+    name: "Ajouter un membre",
+    icon: "users_single-02",
+    component: UserPage,
+    layout: "/admin"
+  },
+  /*{
     path: "/typography",
     name: "Typography",
     icon: "design-2_ruler-pencil",
     component: Typography,
     layout: "/admin"
   },
-  /*{
+  {
     pro: true,
     path: "/upgrade",
     name: "Upgrade to PRO",

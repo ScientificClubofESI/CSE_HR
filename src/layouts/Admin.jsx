@@ -77,7 +77,7 @@ class Dashboard extends React.Component {
                   component={prop.component}
                   key={key}
                 />
-              );
+              )
             })}
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
