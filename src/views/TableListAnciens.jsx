@@ -290,6 +290,9 @@ class RegularTables extends React.Component {
                     <option>Événementiel et formations</option>
                     <option>Design</option>
                     <option>Communication</option>
+                    <option>Multimédia</option>
+                    <option>Développement</option>
+                    <option>Relations externes</option>
                   </Input>
                 </FormGroup>
               </Col>

@@ -30,10 +30,39 @@ import {
   Col
 } from "reactstrap";
 
+//Switch component
+import Switch from "react-switch"
+
+//Manage requests
+import axios from 'axios'
+
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
+import { API_URL } from "api/api";
 
 class User extends React.Component {
+  state = {
+    memberData: {
+      prenom: '',
+      nom: '',
+      email: '',
+      departement: '',
+      statu: '',
+      phoneNumber: '',
+      responsabilite: '',
+      bureau: false
+    },
+  }
+
+  addMember(event) {
+    event.preventDefault()
+    let member = this.state.memberData
+    axios.post(`${API_URL}members/add`, {member})
+      .then((response) => {
+        alert(response.data.prenom + " " + response.data.nom + " a été ajouté !")
+      })
+  }
+
   render() {
     return (
       <>
@@ -43,115 +72,143 @@ class User extends React.Component {
             <Col md="8">
               <Card>
                 <CardHeader>
-                  <h5 className="title">Edit Profile</h5>
+                  <h5 className="title">Ajouter un membre</h5>
                 </CardHeader>
                 <CardBody>
                   <Form>
                     <Row>
-                      <Col className="pr-1" md="5">
+                      <Col className="pr-1" md="6">
                         <FormGroup>
-                          <label>Company (disabled)</label>
+                          <h6>Prénom</h6>
                           <Input
-                            defaultValue="Creative Code Inc."
-                            disabled
-                            placeholder="Company"
+                            placeholder="Prénom"
                             type="text"
+                            required
+                            onChange={(e) => {
+                              var { memberData } = this.state
+                              memberData.prenom = e.target.value
+                              this.setState({ memberData })
+                            }}
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="px-1" md="3">
+                      <Col className="px-1" md="6">
                         <FormGroup>
-                          <label>Username</label>
+                          <h6>Nom</h6>
                           <Input
-                            defaultValue="michael23"
-                            placeholder="Username"
+                            placeholder="Nom"
                             type="text"
+                            onChange={(e) => {
+                              var { memberData } = this.state
+                              memberData.nom = e.target.value
+                              this.setState({ memberData })
+                            }}
                           />
                         </FormGroup>
                       </Col>
-                      <Col className="pl-1" md="4">
+                    </Row>
+                    <Row>
+                      <Col className="pl-1" md="6">
                         <FormGroup>
-                          <label htmlFor="exampleInputEmail1">
+                          <h6>
                             Email address
-                          </label>
-                          <Input placeholder="Email" type="email" />
+                          </h6>
+                          <Input placeholder="Email" type="email"
+                            onChange={(e) => {
+                              var { memberData } = this.state
+                              memberData.email = e.target.value
+                              this.setState({ memberData })
+                            }}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col md="6">
+                        <FormGroup>
+                          <h6>Numéro de téléphone</h6>
+                          <Input
+                            placeholder="Numéro de téléphone"
+                            type="tel"
+                            onChange={(e) => {
+                              var { memberData } = this.state
+                              memberData.phoneNumber = e.target.value
+                              this.setState({ memberData })
+                            }}
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
                     <Row>
                       <Col className="pr-1" md="6">
                         <FormGroup>
-                          <label>First Name</label>
+                          <h6>Département</h6>
                           <Input
-                            defaultValue="Mike"
-                            placeholder="Company"
-                            type="text"
-                          />
+                            type="select"
+                            onChange={(e) => {
+                              var { memberData } = this.state
+                              memberData.departement = e.target.value
+                              this.setState({ memberData })
+                            }}
+                          >
+                            <option>Événementiel et formations</option>
+                            <option>Design</option>
+                            <option>Communication</option>
+                            <option>Multimédia</option>
+                            <option>Développement</option>
+                            <option>Relations externes</option>
+                          </Input>
                         </FormGroup>
                       </Col>
                       <Col className="pl-1" md="6">
                         <FormGroup>
-                          <label>Last Name</label>
+                          <h6>Statu</h6>
                           <Input
-                            defaultValue="Andrew"
-                            placeholder="Last Name"
-                            type="text"
-                          />
+                            type="select"
+                            defaultValue="Newbie"
+                            onChange={(e) => {
+                              var { memberData } = this.state
+                              memberData.statu = e.target.value
+                              this.setState({ memberData })
+                            }}
+                          >
+                            <option>Alumni</option>
+                            <option>Ancien</option>
+                            <option>Newbie</option>
+                          </Input>
                         </FormGroup>
                       </Col>
                     </Row>
                     <Row>
-                      <Col md="12">
+                      <Col xs={12}>
                         <FormGroup>
-                          <label>Address</label>
+                          <h6>Résponsabilité</h6>
                           <Input
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                            placeholder="Home Address"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="pr-1" md="4">
-                        <FormGroup>
-                          <label>City</label>
-                          <Input
-                            defaultValue="Mike"
-                            placeholder="City"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="px-1" md="4">
-                        <FormGroup>
-                          <label>Country</label>
-                          <Input
-                            defaultValue="Andrew"
-                            placeholder="Country"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col className="pl-1" md="4">
-                        <FormGroup>
-                          <label>Postal Code</label>
-                          <Input placeholder="ZIP Code" type="number" />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="12">
-                        <FormGroup>
-                          <label>About Me</label>
-                          <Input
-                            cols="80"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                            placeholder="Here can be your description"
-                            rows="4"
+                            placeholder="Résponsabilité"
                             type="textarea"
+                            onChange={(e) => {
+                              var { memberData } = this.state
+                              memberData.responsabilite = e.target.value
+                              this.setState({ memberData })
+                            }}
                           />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col xs={6}>
+                        <h6>Fait partie du bureau ?</h6>
+                        <Switch checked={this.state.memberData.bureau}
+                          onColor="#1be611"
+                          onChange={() => {
+                            var { memberData } = this.state
+                            memberData.bureau = !this.state.memberData.bureau
+                            this.setState({ memberData })
+                          }}
+                        />
+                      </Col>
+                      <Col xs={6}>
+                        <h6></h6>
+                        <FormGroup style={{ position: "absolute", left: "50%" }}>
+                          <Button color="success" className="btn-round" onClick={this.addMember.bind(this)}>Ajouter !</Button>
                         </FormGroup>
                       </Col>
                     </Row>

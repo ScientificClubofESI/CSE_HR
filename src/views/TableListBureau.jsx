@@ -138,9 +138,9 @@ class RegularTables extends React.Component {
     let deleteMember = window.confirm("Voulez vous vraiment supprimer : " + member.prenom + " " + member.nom + " ?");
     if (deleteMember) {
       axios.delete(`${API_URL}members/delete/` + member._id)
-      .then((response) => {
+        .then((response) => {
           this.refreshMembers()
-      })
+        })
     } else {
       alert(member.prenom + " " + member.nom + " n'a pas été supprimé !")
     }
@@ -290,6 +290,9 @@ class RegularTables extends React.Component {
                     <option>Événementiel et formations</option>
                     <option>Design</option>
                     <option>Communication</option>
+                    <option>Multimédia</option>
+                    <option>Développement</option>
+                    <option>Relations externes</option>
                   </Input>
                 </FormGroup>
               </Col>
@@ -412,7 +415,7 @@ class RegularTables extends React.Component {
                   </Table>
                 </CardBody>
               </Card>
-            </Col>            
+            </Col>
           </Row>
         </div>
       </>

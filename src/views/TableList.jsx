@@ -38,6 +38,9 @@ import {
 //Manage requests
 import axios from 'axios'
 
+//Import sheets data
+import Tabletop from 'tabletop';
+
 //Switch component
 import Switch from "react-switch"
 
@@ -73,6 +76,31 @@ class RegularTables extends React.Component {
       bureau: false
     },
     editMemberModal: false,
+    sheetData: [],
+    sheetMemberModal: false
+  }
+
+  addSheetData() {
+    Tabletop.init({
+      key: 'https://docs.google.com/spreadsheets/d/1v-qvyEypBouPa3xGP7iwRUc90zrH052Lq5GktWVhkUY/edit#gid=0',
+      callback: googleData => {
+        console.log('google sheet data --->', googleData)
+        this.setState({
+          sheetData: [...googleData]
+        })
+        let cpt = 0
+        this.state.sheetData.map((member) => {
+          console.log(member)
+          axios.post(`${API_URL}members/add`, { member })
+            .then(() => {
+              this.refreshMembers()
+            })
+          cpt++
+        })
+        alert(cpt + " membres ont été ajoutés !")
+      },
+      simpleSheet: true
+    })
   }
 
   componentWillMount() {
@@ -138,9 +166,9 @@ class RegularTables extends React.Component {
     let deleteMember = window.confirm("Voulez vous vraiment supprimer : " + member.prenom + " " + member.nom + " ?");
     if (deleteMember) {
       axios.delete(`${API_URL}members/delete/` + member._id)
-      .then((response) => {
+        .then((response) => {
           this.refreshMembers()
-      })
+        })
     } else {
       alert(member.prenom + " " + member.nom + " n'a pas été supprimé !")
     }
@@ -290,6 +318,9 @@ class RegularTables extends React.Component {
                     <option>Événementiel et formations</option>
                     <option>Design</option>
                     <option>Communication</option>
+                    <option>Multimédia</option>
+                    <option>Développement</option>
+                    <option>Relations externes</option>
                   </Input>
                 </FormGroup>
               </Col>
@@ -392,7 +423,11 @@ class RegularTables extends React.Component {
                       </UncontrolledButtonDropdown>
                     </Col>
                     <Col xs={4}>
-                      <i style={{ position: "relative", left: "50px", top: "20px", fontSize: "25px" }} className="now-ui-icons arrows-1_cloud-download-93"></i>
+                      <i
+                        style={{ position: "relative", cursor: "pointer", left: "50px", top: "20px", fontSize: "25px" }}
+                        className="now-ui-icons arrows-1_cloud-download-93"
+                        onClick={this.addSheetData.bind(this)}
+                      ></i>
                     </Col>
                   </Row>
                 </CardHeader>
@@ -413,50 +448,6 @@ class RegularTables extends React.Component {
                 </CardBody>
               </Card>
             </Col>
-            {/*
-            <Col xs={12}>
-              <Card className="card-plain">
-                <CardHeader>
-                  <CardTitle tag="h4">Table on Plain Background</CardTitle>
-                  <p className="category"> Here is a subtitle for this table</p>
-                </CardHeader>
-                <CardBody>
-                  <Table responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        {thead.map((prop, key) => {
-                          if (key === thead.length - 1)
-                            return (
-                              <th key={key} className="text-right">
-                                {prop}
-                              </th>
-                            );
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tbody.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.data.map((prop, key) => {
-                              if (key === thead.length - 1)
-                                return (
-                                  <td key={key} className="text-right">
-                                    {prop}
-                                  </td>
-                                );
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-             */}
           </Row>
         </div>
       </>
