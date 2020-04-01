@@ -84,10 +84,11 @@ class Dashboard extends React.Component {
           <Footer fluid />
         </div>
         {/*
-        <FixedPlugin
+          <FixedPlugin
           bgColor={this.state.backgroundColor}
           handleColorClick={this.handleColorClick}
-        />*/}
+        />
+        */}
       </div>
     );
   }

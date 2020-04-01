@@ -32,7 +32,8 @@ import {
   Form,
   Input,
   Badge,
-  UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle
+  UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle,
+  UncontrolledCollapse,
 } from "reactstrap";
 
 //Manage requests
@@ -49,7 +50,6 @@ import PanelHeader from "components/PanelHeader/PanelHeader.jsx"
 
 //API url
 import { API_URL } from '../api/api'
-
 
 class RegularTables extends React.Component {
   state = {
@@ -77,14 +77,17 @@ class RegularTables extends React.Component {
     },
     editMemberModal: false,
     sheetData: [],
-    sheetMemberModal: false
+    sheetMemberModal: false,
+    filterData: [],
+    filter: false,
+    cpt: 0
   }
 
   addSheetData() {
     Tabletop.init({
       key: 'https://docs.google.com/spreadsheets/d/1v-qvyEypBouPa3xGP7iwRUc90zrH052Lq5GktWVhkUY/edit#gid=0',
       callback: googleData => {
-        console.log('google sheet data --->', googleData)
+        console.log('google sheet data  - 1->', googleData)
         this.setState({
           sheetData: [...googleData]
         })
@@ -174,32 +177,255 @@ class RegularTables extends React.Component {
     }
   }
 
-  render() {
-    let members = this.state.members.map((member, index) => {
-      return (
-        <tr key={index}>
-          <td className="text-left">{member.prenom}</td>
-          <td className="text-left">{member.nom}</td>
-          <td className="text-left">{member.email}</td>
-          <td className="text-left">{member.departement}</td>
-          <td style={{ cursor: "pointer" }}
-            onClick={this.getMemberData.bind(this, member)}
-          >
-            <i className="now-ui-icons users_single-02" ></i>
-          </td>
-          <td style={{ cursor: "pointer" }}
-            onClick={this.editMemberData.bind(this, member)}
-          >
-            <i className="now-ui-icons ui-1_settings-gear-63"></i>
-          </td>
-          <td style={{ cursor: "pointer" }}
-            onClick={this.deleteMemberData.bind(this, member)}
-          >
-            <i className="now-ui-icons ui-1_simple-remove"></i>
-          </td>
-        </tr>
-      )
+  setCpt = (amt) => {
+    this.setState({
+      cpt: this.state.cpt + amt
     })
+  }
+
+  async handleChange(e) {
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
+    let tab = []
+    console.log("Before switch : " + this.state.cpt)
+    switch (e.target.name) {
+      case "Event":    
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/event`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => {return value.departement !== "Événementiel et formations"}
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Design":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/design`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => {return value.departement !== "Design"}
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Comm":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/comm`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => {return value.departement !== "Communication"}
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Média":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/media`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => {return value.departement !== "Multimédia"}
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Dev":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/dev`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => {return value.departement !== "Développement"}
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Relex":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/relex`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => {return value.departement !== "Relations externes"}
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+    }
+  }
+
+  render() {
+    let members
+    if (this.state.filter) {
+      members = this.state.filterData.map((member, index) => {
+        return (
+          <tr key={index}>
+            <td className="text-left">{member.prenom}</td>
+            <td className="text-left">{member.nom}</td>
+            <td className="text-left">{member.email}</td>
+            <td className="text-left">{member.departement}</td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.getMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons users_single-02" ></i>
+            </td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.editMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons ui-1_settings-gear-63"></i>
+            </td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.deleteMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons ui-1_simple-remove"></i>
+            </td>
+          </tr>
+        )
+      })
+    } else {
+      members = this.state.members.map((member, index) => {
+        return (
+          <tr key={index}>
+            <td className="text-left">{member.prenom}</td>
+            <td className="text-left">{member.nom}</td>
+            <td className="text-left">{member.email}</td>
+            <td className="text-left">{member.departement}</td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.getMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons users_single-02" ></i>
+            </td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.editMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons ui-1_settings-gear-63"></i>
+            </td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.deleteMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons ui-1_simple-remove"></i>
+            </td>
+          </tr>
+        )
+      })
+    }
     return (
       <>
         {/* Modal for showing one member's data */}
@@ -411,16 +637,47 @@ class RegularTables extends React.Component {
                   <p className="category"> Veuillez cliquer sur un membre donné pour avoir plus de détails.</p>
                   <Row>
                     <Col xs={4}>
-                      <UncontrolledButtonDropdown>
-                        <DropdownToggle caret>Filter</DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem >Event</DropdownItem>
-                          <DropdownItem divider />
-                          <DropdownItem>Design</DropdownItem>
-                          <DropdownItem divider />
-                          <DropdownItem>Communication</DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledButtonDropdown>
+                      <div>
+                        <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
+                          Filter
+                        </Button>
+                        <UncontrolledCollapse toggler="#toggler">
+                          <Card style={{ paddingLeft: "10px" }}>
+                            <CardBody>
+                              <Row>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Event" onChange={this.handleChange.bind(this)}/>
+                                  <Label>Event</Label>
+                                </Col>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Design" onChange={this.handleChange.bind(this)}/>
+                                  <Label>Design</Label>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Comm" onChange={this.handleChange.bind(this)}/>
+                                  <Label>Comm</Label>
+                                </Col>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Média" onChange={this.handleChange.bind(this)}/>
+                                  <Label>Multimédia</Label>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Relex" onChange={this.handleChange.bind(this)}/>
+                                  <Label>Relex</Label>
+                                </Col>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Dev" onChange={this.handleChange.bind(this)}/>
+                                  <Label>Dev</Label>
+                                </Col>
+                              </Row>
+                            </CardBody>
+                          </Card>
+                        </UncontrolledCollapse>
+                      </div>
                     </Col>
                     <Col xs={4}>
                       <i

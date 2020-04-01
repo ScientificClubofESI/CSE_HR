@@ -16,7 +16,9 @@
 
 */
 /*eslint-disable*/
-import React, { Component } from "react";
+import React, { Component } from "react"
+
+import { Row, Col } from "reactstrap"
 
 class FixedPlugin extends Component {
   constructor(props) {
@@ -42,88 +44,101 @@ class FixedPlugin extends Component {
           </div>
           <ul className="dropdown-menu show">
             <li className="header-title">SIDEBAR BACKGROUND</li>
-            <li className="adjustments-line">
+            <li className="">
               <div className="badge-colors text-center">
-                <span
-                  className={
-                    this.props.bgColor === "yellow"
-                      ? "badge filter badge-yellow active"
-                      : "badge filter badge-yellow"
-                  }
-                  data-color="yellow"
-                  onClick={() => {
-                    this.props.handleColorClick("yellow");
-                  }}
-                />
-                <span
-                  className={
-                    this.props.bgColor === "blue"
-                      ? "badge filter badge-blue active"
-                      : "badge filter badge-blue"
-                  }
-                  data-color="blue"
-                  onClick={() => {
-                    this.props.handleColorClick("blue");
-                  }}
-                />
-                <span
-                  className={
-                    this.props.bgColor === "green"
-                      ? "badge filter badge-green active"
-                      : "badge filter badge-green"
-                  }
-                  data-color="green"
-                  onClick={() => {
-                    this.props.handleColorClick("green");
-                  }}
-                />
-                <span
-                  className={
-                    this.props.bgColor === "orange"
-                      ? "badge filter badge-orange active"
-                      : "badge filter badge-orange"
-                  }
-                  data-color="orange"
-                  onClick={() => {
-                    this.props.handleColorClick("orange");
-                  }}
-                />
-                <span
-                  className={
-                    this.props.bgColor === "red"
-                      ? "badge filter badge-red active"
-                      : "badge filter badge-red"
-                  }
-                  data-color="red"
-                  onClick={() => {
-                    this.props.handleColorClick("red");
-                  }}
-                />
+                <Row>
+                  <Col xs={12}>
+                    <span
+                      className={
+                        this.props.bgColor === "yellow"
+                          ? "badge filter badge-yellow active"
+                          : "badge filter badge-yellow"
+                      }
+                      data-color=""
+                      onClick={() => {
+                        this.props.handleColorClick("yellow");
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <span
+                      className={
+                        this.props.bgColor === "yellow"
+                          ? "badge filter badge-yellow active"
+                          : "badge filter badge-yellow"
+                      }
+                      data-color=""
+                      onClick={() => {
+                        this.props.handleColorClick("yellow");
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <span
+                      className={
+                        this.props.bgColor === "blue"
+                          ? "badge filter badge-blue active"
+                          : "badge filter badge-blue"
+                      }
+                      data-color="blue"
+                      onClick={() => {
+                        this.props.handleColorClick("blue");
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <span
+                      className={
+                        this.props.bgColor === "green"
+                          ? "badge filter badge-green active"
+                          : "badge filter badge-green"
+                      }
+                      data-color=""
+                      onClick={() => {
+                        this.props.handleColorClick("green");
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <span
+                      className={
+                        this.props.bgColor === "orange"
+                          ? "badge filter badge-orange active"
+                          : "badge filter badge-orange"
+                      }
+                      data-color=""
+                      onClick={() => {
+                        this.props.handleColorClick("orange");
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <span
+                      className={
+                        this.props.bgColor === "red"
+                          ? "badge filter badge-red active"
+                          : "badge filter badge-red"
+                      }
+                      data-color=""
+                      onClick={() => {
+                        this.props.handleColorClick("red");
+                      }}
+                    />
+                  </Col>
+                </Row>
               </div>
             </li>
 
-            <li className="button-container">
-              <a
-                href="https://www.creative-tim.com/product/now-ui-dashboard-pro-react?ref=nudr-fixed-plugin"
-                target="_blank"
-                className="btn btn-primary btn-block btn-round"
-              >
-                Buy pro
-              </a>
-              <a
-                href="https://www.creative-tim.com/product/now-ui-dashboard-react?ref=nudr-fixed-plugin"
-                target="_blank"
-                className="btn btn-warning btn-block btn-round"
-              >
-                Download free
-              </a>
-              <a
-                href="https://demos.creative-tim.com/now-ui-dashboard-react/#/documentation/tutorial?ref=nudr-fixed-plugin"
-                className="btn btn-block btn-round btn-info"
-              >
-                Documentation
-              </a>
-            </li>
           </ul>
         </div>
       </div>
