@@ -33,14 +33,11 @@ import {
   Input,
   Badge,
   UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle,
-  UncontrolledCollapse,
-} from "reactstrap";
+  UncontrolledCollapse, Collapse
+} from "reactstrap"
 
 //Manage requests
 import axios from 'axios'
-
-//Import sheets data
-import Tabletop from 'tabletop';
 
 //Switch component
 import Switch from "react-switch"
@@ -76,34 +73,23 @@ class RegularTables extends React.Component {
       bureau: false
     },
     editMemberModal: false,
-    sheetData: [],
-    sheetMemberModal: false,
     filterData: [],
     filter: false,
-    cpt: 0
+    cpt: 0,
+    toggleFilter: false,
+    toggleImport: false,
+    sheetLink: ''
   }
 
-  addSheetData() {
-    Tabletop.init({
-      key: 'https://docs.google.com/spreadsheets/d/1v-qvyEypBouPa3xGP7iwRUc90zrH052Lq5GktWVhkUY/edit#gid=0',
-      callback: googleData => {
-        console.log('google sheet data  - 1->', googleData)
-        this.setState({
-          sheetData: [...googleData]
-        })
-        let cpt = 0
-        this.state.sheetData.map((member) => {
-          console.log(member)
-          axios.post(`${API_URL}members/add`, { member })
-            .then(() => {
-              this.refreshMembers()
-            })
-          cpt++
-        })
-        alert(cpt + " membres ont été ajoutés !")
-      },
-      simpleSheet: true
-    })
+  async addSheetData(event) {
+    const link = this.state.sheetLink
+    event.preventDefault()
+    axios.post(`${API_URL}members/import`, {link})
+      .then((response) => {
+        console.log(response.data)
+        alert(response.data.members.length + " membres ont été ajoutés !")
+      })
+    await this.refreshMembers()
   }
 
   componentWillMount() {
@@ -177,6 +163,18 @@ class RegularTables extends React.Component {
     }
   }
 
+  manageFilterToggle() {
+    this.setState({
+      toggleFilter: !this.state.toggleFilter,
+    })
+  }
+
+  manageImportToggle() {
+    this.setState({
+      toggleImport: !this.state.toggleImport,
+    })
+  }
+
   setCpt = (amt) => {
     this.setState({
       cpt: this.state.cpt + amt
@@ -188,7 +186,7 @@ class RegularTables extends React.Component {
     let tab = []
     console.log("Before switch : " + this.state.cpt)
     switch (e.target.name) {
-      case "Event":    
+      case "Event":
         if (value) {
           await this.setCpt(1)
           if (this.state.cpt === 1) {
@@ -205,7 +203,7 @@ class RegularTables extends React.Component {
         } else {
           await this.setCpt(-1)
           var filtred = this.state.filterData.filter(
-            (value, index, arr) => {return value.departement !== "Événementiel et formations"}
+            (value, index, arr) => { return value.departement !== "Événementiel et formations" }
           )
           this.setState({
             filterData: filtred
@@ -235,7 +233,7 @@ class RegularTables extends React.Component {
         } else {
           await this.setCpt(-1)
           var filtred = this.state.filterData.filter(
-            (value, index, arr) => {return value.departement !== "Design"}
+            (value, index, arr) => { return value.departement !== "Design" }
           )
           this.setState({
             filterData: filtred
@@ -265,7 +263,7 @@ class RegularTables extends React.Component {
         } else {
           await this.setCpt(-1)
           var filtred = this.state.filterData.filter(
-            (value, index, arr) => {return value.departement !== "Communication"}
+            (value, index, arr) => { return value.departement !== "Communication" }
           )
           this.setState({
             filterData: filtred
@@ -295,7 +293,7 @@ class RegularTables extends React.Component {
         } else {
           await this.setCpt(-1)
           var filtred = this.state.filterData.filter(
-            (value, index, arr) => {return value.departement !== "Multimédia"}
+            (value, index, arr) => { return value.departement !== "Multimédia" }
           )
           this.setState({
             filterData: filtred
@@ -325,7 +323,7 @@ class RegularTables extends React.Component {
         } else {
           await this.setCpt(-1)
           var filtred = this.state.filterData.filter(
-            (value, index, arr) => {return value.departement !== "Développement"}
+            (value, index, arr) => { return value.departement !== "Développement" }
           )
           this.setState({
             filterData: filtred
@@ -355,7 +353,7 @@ class RegularTables extends React.Component {
         } else {
           await this.setCpt(-1)
           var filtred = this.state.filterData.filter(
-            (value, index, arr) => {return value.departement !== "Relations externes"}
+            (value, index, arr) => { return value.departement !== "Relations externes" }
           )
           this.setState({
             filterData: filtred
@@ -638,53 +636,72 @@ class RegularTables extends React.Component {
                   <Row>
                     <Col xs={4}>
                       <div>
-                        <Button color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
-                          Filter
-                        </Button>
-                        <UncontrolledCollapse toggler="#toggler">
+                        <Button color="primary" onClick={this.manageFilterToggle.bind(this)}
+                          style={{ marginBottom: '1rem' }}>Filter</Button>
+                        <Collapse isOpen={this.state.toggleFilter}>
                           <Card style={{ paddingLeft: "10px" }}>
                             <CardBody>
                               <Row>
                                 <Col xs={6}>
-                                  <Input type="checkbox" name="Event" onChange={this.handleChange.bind(this)}/>
+                                  <Input type="checkbox" name="Event" onChange={this.handleChange.bind(this)} />
                                   <Label>Event</Label>
                                 </Col>
                                 <Col xs={6}>
-                                  <Input type="checkbox" name="Design" onChange={this.handleChange.bind(this)}/>
+                                  <Input type="checkbox" name="Design" onChange={this.handleChange.bind(this)} />
                                   <Label>Design</Label>
                                 </Col>
                               </Row>
                               <Row>
                                 <Col xs={6}>
-                                  <Input type="checkbox" name="Comm" onChange={this.handleChange.bind(this)}/>
+                                  <Input type="checkbox" name="Comm" onChange={this.handleChange.bind(this)} />
                                   <Label>Comm</Label>
                                 </Col>
                                 <Col xs={6}>
-                                  <Input type="checkbox" name="Média" onChange={this.handleChange.bind(this)}/>
+                                  <Input type="checkbox" name="Média" onChange={this.handleChange.bind(this)} />
                                   <Label>Multimédia</Label>
                                 </Col>
                               </Row>
                               <Row>
                                 <Col xs={6}>
-                                  <Input type="checkbox" name="Relex" onChange={this.handleChange.bind(this)}/>
+                                  <Input type="checkbox" name="Relex" onChange={this.handleChange.bind(this)} />
                                   <Label>Relex</Label>
                                 </Col>
                                 <Col xs={6}>
-                                  <Input type="checkbox" name="Dev" onChange={this.handleChange.bind(this)}/>
+                                  <Input type="checkbox" name="Dev" onChange={this.handleChange.bind(this)} />
                                   <Label>Dev</Label>
                                 </Col>
                               </Row>
                             </CardBody>
                           </Card>
-                        </UncontrolledCollapse>
+                        </Collapse>
                       </div>
                     </Col>
                     <Col xs={4}>
-                      <i
-                        style={{ position: "relative", cursor: "pointer", left: "50px", top: "20px", fontSize: "25px" }}
-                        className="now-ui-icons arrows-1_cloud-download-93"
-                        onClick={this.addSheetData.bind(this)}
-                      ></i>
+                      <div>
+                        <Button color="primary" onClick={this.manageImportToggle.bind(this)}
+                          style={{ marginBottom: '1rem' }}>Import</Button>
+                        <Collapse isOpen={this.state.toggleImport}>
+                          <Card>
+                            <CardBody>
+                              <Label>Veuillez entre le lien du sheet.</Label>
+                              <Input
+                                placeholder="Lien du sheet (ID uniquement)"
+                                type="text"
+                                onChange={(e) => {
+                                  this.setState({
+                                    sheetLink: e.target.value
+                                  })
+                                }}
+                              />
+                              <Button color="primary" size="sm"
+                                onClick={this.addSheetData.bind(this)}>
+                                Import</Button>
+                            </CardBody>
+                          </Card>
+                        </Collapse>
+                      </div>
+                    </Col>
+                    <Col xs={4}>
                     </Col>
                   </Row>
                 </CardHeader>
