@@ -78,18 +78,31 @@ class RegularTables extends React.Component {
     cpt: 0,
     toggleFilter: false,
     toggleImport: false,
+    toggleExport: false,
     sheetLink: ''
   }
 
-  async addSheetData(event) {
+  async importSheetData(event) {
     const link = this.state.sheetLink
     event.preventDefault()
-    axios.post(`${API_URL}members/import`, {link})
+    axios.post(`${API_URL}members/import`, { link })
       .then((response) => {
         console.log(response.data)
         alert(response.data.members.length + " membres ont été ajoutés !")
       })
     await this.refreshMembers()
+  }
+
+  async exportSheetData(event) {
+    const link = this.state.sheetLink
+    const members = this.state.filter ? [...this.state.filterData] : [...this.state.members]
+    event.preventDefault()
+    console.log(members)
+    console.log(link)
+    axios.post(`${API_URL}members/export`, { link, members })
+      .then((response) => {
+        alert(response.data.msg)
+      })
   }
 
   componentWillMount() {
@@ -113,6 +126,24 @@ class RegularTables extends React.Component {
   toggleEditMemberModal() {
     this.setState({
       editMemberModal: !this.state.editMemberModal
+    })
+  }
+
+  manageFilterToggle() {
+    this.setState({
+      toggleFilter: !this.state.toggleFilter,
+    })
+  }
+
+  manageImportToggle() {
+    this.setState({
+      toggleImport: !this.state.toggleImport,
+    })
+  }
+
+  manageExportToggle() {
+    this.setState({
+      toggleExport: !this.state.toggleExport,
     })
   }
 
@@ -161,18 +192,6 @@ class RegularTables extends React.Component {
     } else {
       alert(member.prenom + " " + member.nom + " n'a pas été supprimé !")
     }
-  }
-
-  manageFilterToggle() {
-    this.setState({
-      toggleFilter: !this.state.toggleFilter,
-    })
-  }
-
-  manageImportToggle() {
-    this.setState({
-      toggleImport: !this.state.toggleImport,
-    })
   }
 
   setCpt = (amt) => {
@@ -694,7 +713,7 @@ class RegularTables extends React.Component {
                                 }}
                               />
                               <Button color="primary" size="sm"
-                                onClick={this.addSheetData.bind(this)}>
+                                onClick={this.importSheetData.bind(this)}>
                                 Import</Button>
                             </CardBody>
                           </Card>
@@ -702,6 +721,29 @@ class RegularTables extends React.Component {
                       </div>
                     </Col>
                     <Col xs={4}>
+                      <div>
+                        <Button color="primary" onClick={this.manageExportToggle.bind(this)}
+                          style={{ marginBottom: '1rem' }}>Export</Button>
+                        <Collapse isOpen={this.state.toggleExport}>
+                          <Card>
+                            <CardBody>
+                              <Label>Veuillez entre le lien du sheet.</Label>
+                              <Input
+                                placeholder="Lien du sheet (ID uniquement)"
+                                type="text"
+                                onChange={(e) => {
+                                  this.setState({
+                                    sheetLink: e.target.value
+                                  })
+                                }}
+                              />
+                              <Button color="primary" size="sm"
+                                onClick={this.exportSheetData.bind(this)}>
+                                Export</Button>
+                            </CardBody>
+                          </Card>
+                        </Collapse>
+                      </div>
                     </Col>
                   </Row>
                 </CardHeader>
