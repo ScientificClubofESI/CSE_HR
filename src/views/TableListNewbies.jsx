@@ -32,8 +32,9 @@ import {
   Form,
   Input,
   Badge,
-  UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle
-} from "reactstrap";
+  UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle,
+  UncontrolledCollapse, Collapse
+} from "reactstrap"
 
 //Manage requests
 import axios from 'axios'
@@ -46,7 +47,6 @@ import PanelHeader from "components/PanelHeader/PanelHeader.jsx"
 
 //API url
 import { API_URL } from '../api/api'
-
 
 class RegularTables extends React.Component {
   state = {
@@ -73,6 +73,36 @@ class RegularTables extends React.Component {
       bureau: false
     },
     editMemberModal: false,
+    filterData: [],
+    filter: false,
+    cpt: 0,
+    toggleFilter: false,
+    toggleImport: false,
+    toggleExport: false,
+    sheetLink: ''
+  }
+
+  async importSheetData(event) {
+    const link = this.state.sheetLink
+    event.preventDefault()
+    axios.post(`${API_URL}members/import`, { link })
+      .then((response) => {
+        console.log(response.data)
+        alert(response.data.members.length + " membres ont été ajoutés !")
+      })
+    await this.refreshMembers()
+  }
+
+  async exportSheetData(event) {
+    const link = this.state.sheetLink
+    const members = this.state.filter ? [...this.state.filterData] : [...this.state.members]
+    event.preventDefault()
+    console.log(members)
+    console.log(link)
+    axios.post(`${API_URL}members/export`, { link, members })
+      .then((response) => {
+        alert(response.data.msg)
+      })
   }
 
   componentWillMount() {
@@ -96,6 +126,24 @@ class RegularTables extends React.Component {
   toggleEditMemberModal() {
     this.setState({
       editMemberModal: !this.state.editMemberModal
+    })
+  }
+
+  manageFilterToggle() {
+    this.setState({
+      toggleFilter: !this.state.toggleFilter,
+    })
+  }
+
+  manageImportToggle() {
+    this.setState({
+      toggleImport: !this.state.toggleImport,
+    })
+  }
+
+  manageExportToggle() {
+    this.setState({
+      toggleExport: !this.state.toggleExport,
     })
   }
 
@@ -146,32 +194,255 @@ class RegularTables extends React.Component {
     }
   }
 
-  render() {
-    let members = this.state.members.map((member, index) => {
-      return (
-        <tr key={index}>
-          <td className="text-left">{member.prenom}</td>
-          <td className="text-left">{member.nom}</td>
-          <td className="text-left">{member.email}</td>
-          <td className="text-left">{member.departement}</td>
-          <td style={{ cursor: "pointer" }}
-            onClick={this.getMemberData.bind(this, member)}
-          >
-            <i className="now-ui-icons users_single-02" ></i>
-          </td>
-          <td style={{ cursor: "pointer" }}
-            onClick={this.editMemberData.bind(this, member)}
-          >
-            <i className="now-ui-icons ui-1_settings-gear-63"></i>
-          </td>
-          <td style={{ cursor: "pointer" }}
-            onClick={this.deleteMemberData.bind(this, member)}
-          >
-            <i className="now-ui-icons ui-1_simple-remove"></i>
-          </td>
-        </tr>
-      )
+  setCpt = (amt) => {
+    this.setState({
+      cpt: this.state.cpt + amt
     })
+  }
+
+  async handleChange(e) {
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
+    let tab = []
+    console.log("Before switch : " + this.state.cpt)
+    switch (e.target.name) {
+      case "Event":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/event`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => { return value.departement !== "Événementiel et formations" }
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Design":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/design`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => { return value.departement !== "Design" }
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Comm":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/comm`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => { return value.departement !== "Communication" }
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Média":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/media`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => { return value.departement !== "Multimédia" }
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Dev":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/dev`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => { return value.departement !== "Développement" }
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+      case "Relex":
+        if (value) {
+          await this.setCpt(1)
+          if (this.state.cpt === 1) {
+            this.setState({
+              filter: true
+            })
+          }
+          axios.get(`${API_URL}members/department/relex`).then((response) => {
+            tab = response.data
+            this.setState({
+              filterData: this.state.filterData.concat(tab)
+            })
+          })
+        } else {
+          await this.setCpt(-1)
+          var filtred = this.state.filterData.filter(
+            (value, index, arr) => { return value.departement !== "Relations externes" }
+          )
+          this.setState({
+            filterData: filtred
+          })
+          if (this.state.cpt === 0) {
+            this.setState({
+              filter: false,
+              filterData: []
+            })
+          }
+        }
+        break;
+    }
+  }
+
+  render() {
+    let members
+    if (this.state.filter) {
+      members = this.state.filterData.map((member, index) => {
+        return (
+          <tr key={index}>
+            <td className="text-left">{member.prenom}</td>
+            <td className="text-left">{member.nom}</td>
+            <td className="text-left">{member.email}</td>
+            <td className="text-left">{member.departement}</td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.getMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons users_single-02" ></i>
+            </td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.editMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons ui-1_settings-gear-63"></i>
+            </td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.deleteMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons ui-1_simple-remove"></i>
+            </td>
+          </tr>
+        )
+      })
+    } else {
+      members = this.state.members.map((member, index) => {
+        return (
+          <tr key={index}>
+            <td className="text-left">{member.prenom}</td>
+            <td className="text-left">{member.nom}</td>
+            <td className="text-left">{member.email}</td>
+            <td className="text-left">{member.departement}</td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.getMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons users_single-02" ></i>
+            </td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.editMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons ui-1_settings-gear-63"></i>
+            </td>
+            <td style={{ cursor: "pointer" }}
+              onClick={this.deleteMemberData.bind(this, member)}
+            >
+              <i className="now-ui-icons ui-1_simple-remove"></i>
+            </td>
+          </tr>
+        )
+      })
+    }
     return (
       <>
         {/* Modal for showing one member's data */}
@@ -215,7 +486,7 @@ class RegularTables extends React.Component {
             <Row>
               <Col xs={12}>
                 <h6>Responsabilité</h6>
-                <p>{this.state.memberData.responsabilite || "None"}</p>
+                <p>{this.state.memberData.responsabilite}</p>
               </Col>
             </Row>
           </ModalBody>
@@ -289,10 +560,10 @@ class RegularTables extends React.Component {
                   >
                     <option>Événementiel et formations</option>
                     <option>Design</option>
-                    <option>Communication</option><option>Multimédia</option>
+                    <option>Communication</option>
+                    <option>Multimédia</option>
                     <option>Développement</option>
                     <option>Relations externes</option>
-
                   </Input>
                 </FormGroup>
               </Col>
@@ -383,19 +654,96 @@ class RegularTables extends React.Component {
                   <p className="category"> Veuillez cliquer sur un membre donné pour avoir plus de détails.</p>
                   <Row>
                     <Col xs={4}>
-                      <UncontrolledButtonDropdown>
-                        <DropdownToggle caret>Filter</DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem >Event</DropdownItem>
-                          <DropdownItem divider />
-                          <DropdownItem>Design</DropdownItem>
-                          <DropdownItem divider />
-                          <DropdownItem>Communication</DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledButtonDropdown>
+                      <div>
+                        <Button color="primary" onClick={this.manageFilterToggle.bind(this)}
+                          style={{ marginBottom: '1rem' }}>Filter</Button>
+                        <Collapse isOpen={this.state.toggleFilter}>
+                          <Card style={{ paddingLeft: "10px" }}>
+                            <CardBody>
+                              <Row>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Event" onChange={this.handleChange.bind(this)} />
+                                  <Label>Event</Label>
+                                </Col>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Design" onChange={this.handleChange.bind(this)} />
+                                  <Label>Design</Label>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Comm" onChange={this.handleChange.bind(this)} />
+                                  <Label>Comm</Label>
+                                </Col>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Média" onChange={this.handleChange.bind(this)} />
+                                  <Label>Multimédia</Label>
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Relex" onChange={this.handleChange.bind(this)} />
+                                  <Label>Relex</Label>
+                                </Col>
+                                <Col xs={6}>
+                                  <Input type="checkbox" name="Dev" onChange={this.handleChange.bind(this)} />
+                                  <Label>Dev</Label>
+                                </Col>
+                              </Row>
+                            </CardBody>
+                          </Card>
+                        </Collapse>
+                      </div>
                     </Col>
                     <Col xs={4}>
-                      <i style={{ position: "relative", left: "50px", top: "20px", fontSize: "25px" }} className="now-ui-icons arrows-1_cloud-download-93"></i>
+                      <div>
+                        <Button color="primary" onClick={this.manageImportToggle.bind(this)}
+                          style={{ marginBottom: '1rem' }}>Import</Button>
+                        <Collapse isOpen={this.state.toggleImport}>
+                          <Card>
+                            <CardBody>
+                              <Label>Veuillez entre le lien du sheet.</Label>
+                              <Input
+                                placeholder="Lien du sheet (ID uniquement)"
+                                type="text"
+                                onChange={(e) => {
+                                  this.setState({
+                                    sheetLink: e.target.value
+                                  })
+                                }}
+                              />
+                              <Button color="primary" size="sm"
+                                onClick={this.importSheetData.bind(this)}>
+                                Import</Button>
+                            </CardBody>
+                          </Card>
+                        </Collapse>
+                      </div>
+                    </Col>
+                    <Col xs={4}>
+                      <div>
+                        <Button color="primary" onClick={this.manageExportToggle.bind(this)}
+                          style={{ marginBottom: '1rem' }}>Export</Button>
+                        <Collapse isOpen={this.state.toggleExport}>
+                          <Card>
+                            <CardBody>
+                              <Label>Veuillez entre le lien du sheet.</Label>
+                              <Input
+                                placeholder="Lien du sheet (ID uniquement)"
+                                type="text"
+                                onChange={(e) => {
+                                  this.setState({
+                                    sheetLink: e.target.value
+                                  })
+                                }}
+                              />
+                              <Button color="primary" size="sm"
+                                onClick={this.exportSheetData.bind(this)}>
+                                Export</Button>
+                            </CardBody>
+                          </Card>
+                        </Collapse>
+                      </div>
                     </Col>
                   </Row>
                 </CardHeader>
