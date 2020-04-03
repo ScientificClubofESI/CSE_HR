@@ -25,15 +25,18 @@ import "assets/scss/now-ui-dashboard.scss?v1.2.0";
 import "assets/css/demo.css";
 
 import AdminLayout from "layouts/Admin.jsx";
+import Login from "layouts/Login.jsx"
 
 const hist = createBrowserHistory();
 
 ReactDOM.render(
+  <Login></Login>,
+  /*
   <Router history={hist}>
     <Switch>
       <Route path="/admin" render={props => <AdminLayout {...props} />} />
       <Redirect to="/admin/dashboard" />
     </Switch>
-  </Router>,
+  </Router>,*/
   document.getElementById("root")
 );
