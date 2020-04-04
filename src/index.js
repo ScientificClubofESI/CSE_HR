@@ -15,6 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
@@ -29,14 +30,38 @@ import Login from "layouts/Login.jsx"
 
 const hist = createBrowserHistory();
 
+export const fakeAuth = {
+  isAuthenticated: false,
+  authenticate(cb) {
+    this.isAuthenticated = true
+    setTimeout(cb, 1000)
+  },
+  signout(cb) {
+    this.isAuthenticated = false
+    setTimeout(cb, 1000)
+  }
+}
+
+const tokens = JSON.parse(localStorage.getItem('tokens'));
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+      localStorage.getItem("tokens")
+      ? <Component {...props} />
+      : <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location }
+      }} />
+  )} />
+)
+
 ReactDOM.render(
-  <Login></Login>,
-  /*
   <Router history={hist}>
     <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} />
+      <Route path="/login" component={Login} />
+      <PrivateRoute path="/admin" component={AdminLayout} />
       <Redirect to="/admin/dashboard" />
     </Switch>
-  </Router>,*/
+  </Router>,
   document.getElementById("root")
 );

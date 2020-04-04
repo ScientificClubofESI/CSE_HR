@@ -36,6 +36,7 @@ import {
 } from "reactstrap";
 
 import routes from "routes.js";
+//import Logout from "../../context/Logout"
 
 class Header extends React.Component {
   state = {
@@ -43,6 +44,7 @@ class Header extends React.Component {
     dropdownOpen: false,
     color: "transparent"
   };
+
   sidebarToggle = React.createRef();
   toggle = () => {
     if (this.state.isOpen) {
@@ -198,11 +200,14 @@ class Header extends React.Component {
               </Dropdown>
               <NavItem>
                 <Link to="#pablo" className="nav-link">
-                  <i className="now-ui-icons users_single-02" />
+                  <i className="now-ui-icons users_single-02" 
+                  />
                   <p>
                     <span className="d-lg-none d-md-block">Account</span>
                   </p>
                 </Link>
+              </NavItem>
+              <NavItem>
               </NavItem>
             </Nav>
           </Collapse>

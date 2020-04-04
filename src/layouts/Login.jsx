@@ -13,33 +13,49 @@ import {
     Col
 } from "reactstrap";
 
-//Switch component
-import Switch from "react-switch"
+import { Redirect } from "react-router-dom";
 
 //Manage requests
 import axios from 'axios'
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
-import { API_URL } from "api/api";
 
+import { API_URL } from "api/api";
+import { fakeAuth } from "../index"
 
 export class Login extends Component {
     state = {
         email: '',
         password: '',
+        redirectToReferrer: false,
     }
 
-    login() {
+    async login() {
         const email = this.state.email
         const password = this.state.password
-        axios.post(`${API_URL}login`, {email, password})
-            .then((response) => {
-                alert(response.data.admin.email + " est connecté !")
+        axios.post(`${API_URL}login`, { email, password })
+            .then(async (response) => {
+                this.setState({
+                    redirectToReferrer: true
+                })
+                localStorage.setItem("tokens",  JSON.stringify(response.data.token))
+                console.log(localStorage.getItem("tokens"))
+                await fakeAuth.authenticate(() => {
+                    this.setState({
+                        redirectToReferrer: true
+                    })
+                })
+
+                //alert(response.data.admin.email + " est connecté !")
             })
     }
 
     render() {
+        const { from } = this.props.location.state || { from: { pathname: '/admin' } }
+        if (this.state.redirectToReferrer === true) {
+            return <Redirect to={from} />
+        }
         return (
             <>
                 <PanelHeader size="sm" />
