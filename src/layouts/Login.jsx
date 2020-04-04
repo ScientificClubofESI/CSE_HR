@@ -21,34 +21,37 @@ import axios from 'axios'
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
-import { API_URL } from "api/api";
-import { fakeAuth } from "../index"
+import { API_URL } from "api/api"
 
 export class Login extends Component {
+    _isMounted = false
+
     state = {
         email: '',
         password: '',
         redirectToReferrer: false,
     }
 
-    async login() {
+    componentDidMount() {
+        this._isMounted = true
+    }
+
+    login() {
         const email = this.state.email
         const password = this.state.password
         axios.post(`${API_URL}login`, { email, password })
-            .then(async (response) => {
-                this.setState({
-                    redirectToReferrer: true
-                })
-                localStorage.setItem("tokens",  JSON.stringify(response.data.token))
-                console.log(localStorage.getItem("tokens"))
-                await fakeAuth.authenticate(() => {
+            .then((response) => {
+                localStorage.setItem("tokens", JSON.stringify(response.data.token))
+                if (this._isMounted) {
                     this.setState({
                         redirectToReferrer: true
                     })
-                })
-
-                //alert(response.data.admin.email + " est connecté !")
+                }
             })
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false
     }
 
     render() {

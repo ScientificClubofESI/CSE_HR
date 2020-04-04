@@ -36,7 +36,7 @@ import {
 } from "reactstrap";
 
 import routes from "routes.js";
-//import Logout from "../../context/Logout"
+import Logout from "../../layouts/Logout"
 
 class Header extends React.Component {
   state = {
@@ -208,6 +208,7 @@ class Header extends React.Component {
                 </Link>
               </NavItem>
               <NavItem>
+                <Logout />
               </NavItem>
             </Nav>
           </Collapse>
