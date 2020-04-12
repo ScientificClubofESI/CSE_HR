@@ -23,6 +23,8 @@ import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
 import { API_URL } from "api/api"
 
+import logo from "../assets/img/cse_hq.png";
+
 export class Login extends Component {
     _isMounted = false
 
@@ -61,7 +63,23 @@ export class Login extends Component {
         }
         return (
             <>
-                <PanelHeader size="sm" />
+                <PanelHeader size="md" content={
+                    <div className="logo">
+                        <a
+                            href="https://cse.club/"
+                            className="simple-text logo-mini"
+                            target="_blank"
+                        >
+                            <div className="logo-img">
+                                <img src={logo} alt="cse-logo" style={{
+                                    display: "block",
+                                    marginLeft: "auto",
+                                    marginRight: "auto"
+                                }} />
+                            </div>
+                        </a>
+                    </div>
+                } />
                 <div className="content">
                     <Row>
                         <Col md="3"></Col>
