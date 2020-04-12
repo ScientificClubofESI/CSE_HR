@@ -213,7 +213,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/department/event`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/event`).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -243,7 +243,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/department/design`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/design`).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -273,7 +273,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/department/comm`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/comm`).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -303,7 +303,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/department/media`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/media`).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -333,7 +333,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/department/dev`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/dev`).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -363,7 +363,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/department/relex`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/relex`).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
