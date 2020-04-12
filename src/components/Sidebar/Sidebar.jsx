@@ -22,7 +22,7 @@ import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
-import logo from "../../assets/img/cse.png";
+import logo from "../../assets/img/cse_hq.png";
 
 var ps;
 
@@ -54,22 +54,27 @@ class Sidebar extends React.Component {
         <div className="logo">
           <a
             href="https://cse.club/"
-            className="simple-text logo-mini"
+            className="simple-text logo-normal"
             target="_blank"
           >
             <div className="logo-img">
-              <img src={logo} alt="cse-logo" />
+              <img src={logo} alt="cse-logo" style={{
+                height: "66%",
+                width: "66%",
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }} />
             </div>
           </a>
           <a
             href="https://cse.club/"
             className="simple-text logo-normal"
             target="_blank"
-            style={{fontSize: "40px"}}
+            style={{ fontSize: "30px", fontWeight:"bold", textAlign: "center" }}
           >
-            CSE HR
+            - CSE HR -
           </a>
-          <br/>
         </div>
         <div className="sidebar-wrapper" ref="sidebar">
           <Nav>
