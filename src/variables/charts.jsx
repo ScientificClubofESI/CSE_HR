@@ -343,18 +343,12 @@ const dashboard24HoursPerformanceChart = {
     gradientFill.addColorStop(1, hexToRGB("#2CA8FF", 0.6));
     return {
       labels: [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
+        "Événementiel et formations",
+        "Communication",
+        "Design",
+        "MultiMédia",
+        "Développement",
+        "Relations externes"
       ],
       datasets: [
         {
@@ -428,3 +422,4 @@ module.exports = {
   dashboardAllProductsChart, // Chart for Dashboard view - All products Card
   dashboard24HoursPerformanceChart // Chart for Dashboard view - 24 Hours Performance Card
 };
+

@@ -8,6 +8,8 @@
     "axios": "^0.19.2",
     "bootstrap": "4.3.1",
     "chart.js": "2.8.0",
+    "formik": "^2.1.4",
+    "formsy-react": "^2.0.2",
     "google-spreadsheet": "^3.0.10",
     "history": "4.9.0",
     "node-sass": "4.12.0",

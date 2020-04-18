@@ -40,6 +40,9 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 
+import axios from "axios"
+import { API_URL } from "../api/api"
+
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
@@ -51,6 +54,96 @@ import {
 } from "variables/charts.jsx";
 
 class Dashboard extends React.Component {
+  state = {
+    event: 0,
+    design: 0,
+    media: 0,
+    comm: 0,
+    dev: 0,
+    relex: 0,
+  }
+
+  setEventData = (amt) => {
+    this.setState({
+      event: this.state.event + amt
+    })
+  }
+
+  setDesignData = (amt) => {
+    this.setState({
+      design: this.state.design + amt
+    })
+  }
+
+  setCommData = (amt) => {
+    this.setState({
+      comm: this.state.comm + amt
+    })
+  }
+
+  setMediaData = (amt) => {
+    this.setState({
+      media: this.state.media + amt
+    })
+  }
+
+  setRelexData = (amt) => {
+    this.setState({
+      relex: this.state.relex + amt
+    })
+  }
+
+  setDevData = (amt) => {
+    this.setState({
+      dev: this.state.dev + amt
+    })
+  }
+
+  getEventStat = async () => {
+    await axios.get(`${API_URL}members/chart/department/event`).then(async (response) => {
+      await this.setEventData(response.data.length)
+    })
+  }
+
+  getDesignStat = async () => {
+    await axios.get(`${API_URL}members/chart/department/design`).then(async (response) => {
+      await this.setDesignData(response.data.length)
+    })
+  }
+
+  getCommStat = async () => {
+    await axios.get(`${API_URL}members/chart/department/comm`).then(async (response) => {
+      await this.setCommData(response.data.length)
+    })
+  }
+
+  getMediaStat = async () => {
+    await axios.get(`${API_URL}members/chart/department/media`).then(async (response) => {
+      await this.setMediaData(response.data.length)
+    })
+  }
+
+  getDevStat = async () => {
+    await axios.get(`${API_URL}members/chart/department/dev`).then(async (response) => {
+      await this.setDevData(response.data.length)
+    })
+  }
+  getRelexStat = async () => {
+    await axios.get(`${API_URL}members/chart/department/relex`).then(async (response) => {
+      await this.setRelexData(response.data.length)
+    })
+  }
+
+  componentWillMount() {
+    this.getEventStat()
+    this.getDesignStat()
+    this.getCommStat()
+    this.getMediaStat()
+    this.getDevStat()
+    this.getRelexStat()
+    console.log(this.state)
+  }
+
   render() {
     return (
       <>

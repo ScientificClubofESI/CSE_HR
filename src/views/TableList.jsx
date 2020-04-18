@@ -97,8 +97,6 @@ class RegularTables extends React.Component {
     const link = this.state.sheetLink
     const members = this.state.filter ? [...this.state.filterData] : [...this.state.members]
     event.preventDefault()
-    console.log(members)
-    console.log(link)
     axios.post(`${API_URL}members/export`, { link, members })
       .then((response) => {
         alert(response.data.msg)

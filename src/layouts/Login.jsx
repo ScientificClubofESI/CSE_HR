@@ -23,6 +23,8 @@ import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
 import { API_URL } from "api/api"
 
+import Formsy from 'formsy-react';
+
 import logo from "../assets/img/cse_hq.png";
 
 export class Login extends Component {
@@ -32,10 +34,20 @@ export class Login extends Component {
         email: '',
         password: '',
         redirectToReferrer: false,
+        canSubmit: false,
+        checked: false
     }
 
     componentDidMount() {
         this._isMounted = true
+    }
+
+    disableButton() {
+        this.setState({ canSubmit: false });
+    }
+
+    enableButton() {
+        this.setState({ canSubmit: true });
     }
 
     login() {
@@ -49,6 +61,8 @@ export class Login extends Component {
                         redirectToReferrer: true
                     })
                 }
+            }).catch((error) => {
+                alert("Email ou mot de passe éronné !")
             })
     }
 
@@ -91,7 +105,9 @@ export class Login extends Component {
                                     >Login</h1>
                                 </CardHeader>
                                 <CardBody>
-                                    <Form>
+                                <Formsy onValidSubmit={this.login.bind(this)} 
+                                    onValid={this.enableButton.bind(this)} 
+                                    onInvalid={this.disableButton.bind(this)}>
                                         <Row>
                                             <Col md="12">
                                                 <FormGroup>
@@ -115,6 +131,7 @@ export class Login extends Component {
                                                     <Input
                                                         placeholder="Mot de passe"
                                                         type="password"
+                                                        required
                                                         onChange={(e) => {
                                                             var password = e.target.value
                                                             this.setState({ password: password })
@@ -127,11 +144,11 @@ export class Login extends Component {
                                             <Col md="12">
                                                 <FormGroup style={{ left: "40%" }}>
                                                     <Button outline color="info" size="lg"
-                                                        onClick={this.login.bind(this)} className="btn-round">Login</Button>
+                                                        type="submit" className="btn-round">Login</Button>
                                                 </FormGroup>
                                             </Col>
                                         </Row>
-                                    </Form>
+                                    </Formsy>
                                 </CardBody>
                             </Card>
                         </Col>
