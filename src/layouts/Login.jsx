@@ -21,9 +21,10 @@ import axios from 'axios'
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
-import { API_URL } from "api/api"
-
+//Form validation
 import Formsy from 'formsy-react';
+
+import { API_URL } from "api/api"
 
 import logo from "../assets/img/cse_hq.png";
 
@@ -35,7 +36,6 @@ export class Login extends Component {
         password: '',
         redirectToReferrer: false,
         canSubmit: false,
-        checked: false
     }
 
     componentDidMount() {

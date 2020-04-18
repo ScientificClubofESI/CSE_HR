@@ -36,6 +36,9 @@ import Switch from "react-switch"
 //Manage requests
 import axios from 'axios'
 
+//Form validation
+import Formsy from 'formsy-react';
+
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 import { API_URL } from "api/api";
@@ -54,13 +57,26 @@ class User extends React.Component {
     },
   }
 
-  addMember(event) {
-    event.preventDefault()
+  async addMember() {
+    if (this.state.memberData.statu === "") {
+      var { memberData } = this.state
+      memberData.statu = "Newbie"
+      await this.setState({ memberData })
+    }
     let member = this.state.memberData
-    axios.post(`${API_URL}members/add`, {member})
+    console.log(member)
+    axios.post(`${API_URL}members/add`, { member })
       .then((response) => {
-        alert(response.data.prenom + " " + response.data.nom + " a été ajouté !")
+        alert(response.data.member.prenom + " " + response.data.member.nom + " a été ajouté !")
       })
+  }
+
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
   }
 
   render() {
@@ -75,7 +91,9 @@ class User extends React.Component {
                   <h5 className="title">Ajouter un membre</h5>
                 </CardHeader>
                 <CardBody>
-                  <Form>
+                  <Formsy onValidSubmit={this.addMember.bind(this)}
+                    onValid={this.enableButton.bind(this)}
+                    onInvalid={this.disableButton.bind(this)}>
                     <Row>
                       <Col className="pr-1" md="6">
                         <FormGroup>
@@ -84,6 +102,8 @@ class User extends React.Component {
                             placeholder="Prénom"
                             type="text"
                             required
+                            pattern="[A-Za-z, ]*"
+                            title="Lettres uniquement !"
                             onChange={(e) => {
                               var { memberData } = this.state
                               memberData.prenom = e.target.value
@@ -98,6 +118,9 @@ class User extends React.Component {
                           <Input
                             placeholder="Nom"
                             type="text"
+                            required
+                            pattern="[A-Za-z, ]*"
+                            title="Lettres uniquement !"
                             onChange={(e) => {
                               var { memberData } = this.state
                               memberData.nom = e.target.value
@@ -114,6 +137,8 @@ class User extends React.Component {
                             Email address
                           </h6>
                           <Input placeholder="Email" type="email"
+                            required
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                             onChange={(e) => {
                               var { memberData } = this.state
                               memberData.email = e.target.value
@@ -127,6 +152,7 @@ class User extends React.Component {
                           <h6>Numéro de téléphone</h6>
                           <Input
                             placeholder="Numéro de téléphone"
+                            pattern="^\+?\d{0,13}"
                             type="tel"
                             onChange={(e) => {
                               var { memberData } = this.state
@@ -164,12 +190,14 @@ class User extends React.Component {
                           <Input
                             type="select"
                             defaultValue="Newbie"
+                            required
                             onChange={(e) => {
                               var { memberData } = this.state
                               memberData.statu = e.target.value
                               this.setState({ memberData })
                             }}
                           >
+
                             <option>Alumni</option>
                             <option>Ancien</option>
                             <option>Newbie</option>
@@ -208,11 +236,11 @@ class User extends React.Component {
                       <Col xs={6}>
                         <h6></h6>
                         <FormGroup style={{ position: "absolute", left: "75%" }}>
-                          <Button color="success" className="btn-round" onClick={this.addMember.bind(this)}>Ajouter !</Button>
+                          <Button color="success" type="submit" className="btn-round" >Ajouter !</Button>
                         </FormGroup>
                       </Col>
                     </Row>
-                  </Form>
+                  </Formsy>
                 </CardBody>
               </Card>
             </Col>
