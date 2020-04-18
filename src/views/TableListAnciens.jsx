@@ -45,6 +45,9 @@ import Switch from "react-switch"
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx"
 
+//Form validation
+import Formsy from 'formsy-react';
+
 //API url
 import { API_URL } from '../api/api'
 
@@ -109,6 +112,14 @@ class RegularTables extends React.Component {
     this.refreshMembers()
   }
 
+  disableButton() {
+    this.setState({ canSubmit: false });
+  }
+
+  enableButton() {
+    this.setState({ canSubmit: true });
+  }
+
   refreshMembers() {
     axios.get(`${API_URL}members/old`).then((response) => {
       this.setState({
@@ -169,8 +180,7 @@ class RegularTables extends React.Component {
     }, () => { })
   }
 
-  updateMember(event) {
-    event.preventDefault()
+  updateMember() {
     const member = this.state.editMemberData
     axios.put(`${API_URL}members/edit/` + member._id, { member })
       .then(() => {
@@ -498,147 +508,160 @@ class RegularTables extends React.Component {
         <Modal className="modal-Body" isOpen={this.state.editMemberModal} toggle={this.toggleEditMemberModal.bind(this)}>
           <ModalHeader toggle={this.toggleEditMemberModal.bind(this)} >Modifier les détails d'un membre</ModalHeader>
           <ModalBody>
-            <Row >
-              <Col xs={6}>
-                <FormGroup>
-                  <h6>Prénom</h6>
-                  <Input
-                    defaultValue={this.state.editMemberData.prenom}
-                    placeholder="Prénom"
-                    type="text"
-                    onChange={(e) => {
+            <Formsy onValidSubmit={this.updateMember.bind(this)}
+              onValid={this.enableButton.bind(this)}
+              onInvalid={this.disableButton.bind(this)}>
+              <Row >
+                <Col xs={6}>
+                  <FormGroup>
+                    <h6>Prénom</h6>
+                    <Input
+                      defaultValue={this.state.editMemberData.prenom}
+                      placeholder="Prénom"
+                      type="text"
+                      required
+                      pattern="[A-Za-z, ]*"
+                      title="Lettres uniquement !"
+                      onChange={(e) => {
+                        var { editMemberData } = this.state
+                        editMemberData.prenom = e.target.value
+                        this.setState({ editMemberData })
+                      }}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs={6}>
+                  <FormGroup>
+                    <h6>Nom</h6>
+                    <Input
+                      defaultValue={this.state.editMemberData.nom}
+                      placeholder="Nom"
+                      type="text"
+                      required
+                      pattern="[A-Za-z, ]*"
+                      title="Lettres uniquement !"
+                      onChange={(e) => {
+                        var { editMemberData } = this.state
+                        editMemberData.nom = e.target.value
+                        this.setState({ editMemberData: editMemberData })
+                      }}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={6}>
+                  <FormGroup>
+                    <h6>Email</h6>
+                    <Input
+                      defaultValue={this.state.editMemberData.email}
+                      placeholder="Email"
+                      type="email"
+                      required
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                      onChange={(e) => {
+                        var { editMemberData } = this.state
+                        editMemberData.email = e.target.value
+                        this.setState({ editMemberData })
+                      }}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs={6}>
+                  <FormGroup>
+                    <h6>Département</h6>
+                    <Input
+                      type="select"
+                      defaultValue={this.state.editMemberData.departement}
+                      onChange={(e) => {
+                        var { editMemberData } = this.state
+                        editMemberData.departement = e.target.value
+                        this.setState({ editMemberData })
+                      }}
+                    >
+                      <option>Événementiel et formations</option>
+                      <option>Design</option>
+                      <option>Communication</option>
+                      <option>Multimédia</option>
+                      <option>Développement</option>
+                      <option>Relations externes</option>
+                    </Input>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row >
+                <Col xs={6}>
+                  <FormGroup>
+                    <h6>Statu</h6>
+                    <Input
+                      type="select"
+                      defaultValue={this.state.editMemberData.statu}
+                      onChange={(e) => {
+                        var { editMemberData } = this.state
+                        editMemberData.statu = e.target.value
+                        this.setState({ editMemberData })
+                      }}
+                    >
+                      <option>Alumni</option>
+                      <option>Ancien</option>
+                      <option>Newbie</option>
+                    </Input>
+                  </FormGroup>
+                </Col>
+                <Col xs={6}>
+                  <FormGroup>
+                    <h6>Numéro de téléphone</h6>
+                    <Input
+                      defaultValue={this.state.editMemberData.phoneNumber}
+                      placeholder="Numéro de téléphone"
+                      type="tel"
+                      pattern="^\+?\d{0,13}"
+                      onChange={(e) => {
+                        var { editMemberData } = this.state
+                        editMemberData.phoneNumber = e.target.value
+                        this.setState({ editMemberData })
+                      }}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={12}>
+                  <FormGroup>
+                    <h6>Résponsabilité</h6>
+                    <Input
+                      defaultValue={this.state.editMemberData.responsabilite}
+                      placeholder="Résponsabilité"
+                      type="textarea"
+                      onChange={(e) => {
+                        var { editMemberData } = this.state
+                        editMemberData.responsabilite = e.target.value
+                        this.setState({ editMemberData })
+                      }}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col xs={6}>
+                  <h6>Fait partie du bureau ?</h6>
+                  <Switch checked={this.state.editMemberData.bureau}
+                    onColor="#1be611"
+                    onChange={() => {
                       var { editMemberData } = this.state
-                      editMemberData.prenom = e.target.value
+                      editMemberData.bureau = !this.state.editMemberData.bureau
                       this.setState({ editMemberData })
                     }}
                   />
-                </FormGroup>
-              </Col>
-              <Col xs={6}>
-                <FormGroup>
-                  <h6>Nom</h6>
-                  <Input
-                    defaultValue={this.state.editMemberData.nom}
-                    placeholder="Nom"
-                    type="text"
-                    onChange={(e) => {
-                      var { editMemberData } = this.state
-                      editMemberData.nom = e.target.value
-                      this.setState({ editMemberData: editMemberData })
-                    }}
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={6}>
-                <FormGroup>
-                  <h6>Email</h6>
-                  <Input
-                    defaultValue={this.state.editMemberData.email}
-                    placeholder="Email"
-                    type="email"
-                    onChange={(e) => {
-                      var { editMemberData } = this.state
-                      editMemberData.email = e.target.value
-                      this.setState({ editMemberData })
-                    }}
-                  />
-                </FormGroup>
-              </Col>
-              <Col xs={6}>
-                <FormGroup>
-                  <h6>Département</h6>
-                  <Input
-                    type="select"
-                    defaultValue={this.state.editMemberData.departement}
-                    onChange={(e) => {
-                      var { editMemberData } = this.state
-                      editMemberData.departement = e.target.value
-                      this.setState({ editMemberData })
-                    }}
-                  >
-                    <option>Événementiel et formations</option>
-                    <option>Design</option>
-                    <option>Communication</option>
-                    <option>Multimédia</option>
-                    <option>Développement</option>
-                    <option>Relations externes</option>
-                  </Input>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row >
-              <Col xs={6}>
-                <FormGroup>
-                  <h6>Statu</h6>
-                  <Input
-                    type="select"
-                    defaultValue={this.state.editMemberData.statu}
-                    onChange={(e) => {
-                      var { editMemberData } = this.state
-                      editMemberData.statu = e.target.value
-                      this.setState({ editMemberData })
-                    }}
-                  >
-                    <option>Alumni</option>
-                    <option>Ancien</option>
-                    <option>Newbie</option>
-                  </Input>
-                </FormGroup>
-              </Col>
-              <Col xs={6}>
-                <FormGroup>
-                  <h6>Numéro de téléphone</h6>
-                  <Input
-                    defaultValue={this.state.editMemberData.phoneNumber}
-                    placeholder="Numéro de téléphone"
-                    type="tel"
-                    onChange={(e) => {
-                      var { editMemberData } = this.state
-                      editMemberData.phoneNumber = e.target.value
-                      this.setState({ editMemberData })
-                    }}
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12}>
-                <FormGroup>
-                  <h6>Résponsabilité</h6>
-                  <Input
-                    defaultValue={this.state.editMemberData.responsabilite}
-                    placeholder="Résponsabilité"
-                    type="textarea"
-                    onChange={(e) => {
-                      var { editMemberData } = this.state
-                      editMemberData.responsabilite = e.target.value
-                      this.setState({ editMemberData })
-                    }}
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={6}>
-                <h6>Fait partie du bureau ?</h6>
-                <Switch checked={this.state.editMemberData.bureau}
-                  onColor="#1be611"
-                  onChange={() => {
-                    var { editMemberData } = this.state
-                    editMemberData.bureau = !this.state.editMemberData.bureau
-                    this.setState({ editMemberData })
-                  }}
-                />
-              </Col>
-              <Col xs={6}>
-                <h6></h6>
-                <FormGroup style={{ position: "absolute", left: "50%" }}>
-                  <Button color="warning" className="btn-round" onClick={this.updateMember.bind(this)}>Modifier !</Button>
-                </FormGroup>
-              </Col>
-            </Row>
+                </Col>
+                <Col xs={6}>
+                  <h6></h6>
+                  <FormGroup style={{ position: "absolute", left: "50%" }}>
+                    <Button color="warning" className="btn-round" type="submit">Modifier !</Button>
+                  </FormGroup>
+                </Col>
+              </Row>
+            </Formsy>
           </ModalBody>
           <ModalFooter>
           </ModalFooter>
@@ -650,7 +673,7 @@ class RegularTables extends React.Component {
             <Col xs={12}>
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">CSE all members</CardTitle>
+                  <CardTitle tag="h4">CSE old members</CardTitle>
                   <p className="category"> Veuillez cliquer sur un membre donné pour avoir plus de détails.</p>
                   <Row>
                     <Col xs={4}>
