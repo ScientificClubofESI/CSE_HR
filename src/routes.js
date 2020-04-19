@@ -16,12 +16,7 @@
 
 */
 import Dashboard from "views/Dashboard.jsx";
-import Notifications from "views/Notifications.jsx";
-import Icons from "views/Icons.jsx";
-import Typography from "views/Typography.jsx";
 import TableList from "views/TableList.jsx";
-import Maps from "views/Maps.jsx";
-import Upgrade from "views/Upgrade.jsx";
 import UserPage from "views/UserPage.jsx";
 import TableListAnciens from "views/TableListAnciens"
 import TableListNewbies from "views/TableListNewbies"
@@ -36,27 +31,6 @@ var dashRoutes = [
     component: Dashboard,
     layout: "/admin"
   },
-  /*{
-    path: "/icons",
-    name: "Icons",
-    icon: "design_image",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "location_map-big",
-    component: Maps,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "ui-1_bell-53",
-    component: Notifications,
-    layout: "/admin"
-  },*/
   {
     path: "/extended-tables",
     name: "Tous Members",
@@ -67,28 +41,28 @@ var dashRoutes = [
   {
     path: "/anciens",
     name: "Anciens",
-    icon: "files_paper",
+    icon: "objects_spaceship",
     component: TableListAnciens,
     layout: "/admin"
   },
   {
     path: "/newbies",
     name: "Newbies",
-    icon: "files_paper",
+    icon: "emoticons_satisfied",
     component: TableListNewbies,
     layout: "/admin"
   },
   {
     path: "/alumnis",
     name: "Alumnis",
-    icon: "files_paper",
+    icon: "education_glasses",
     component: TableListAlumnis,
     layout: "/admin"
   },
   {
     path: "/bureau",
     name: "Bureau",
-    icon: "files_paper",
+    icon: "business_briefcase-24",
     component: TableListBureau,
     layout: "/admin"
   },
