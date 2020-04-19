@@ -22,7 +22,7 @@ import { Nav } from "reactstrap";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
-import logo from "../../assets/img/cse_hq.png";
+import logo from "../../assets/img/cse_white.png";
 
 var ps;
 

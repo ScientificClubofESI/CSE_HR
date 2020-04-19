@@ -773,12 +773,12 @@ class RegularTables extends React.Component {
                 </CardHeader>
                 <CardBody>
                   <Table responsive>
-                    <thead className="text-primary">
+                    <thead>
                       <tr>
-                        <th className="text-left">Prénom</th>
-                        <th className="text-left">Nom</th>
-                        <th className="text-left">Email</th>
-                        <th className="text-left">Département</th>
+                        <th style={{fontWeight: "bold"}} className="text-left">Prénom</th>
+                        <th style={{fontWeight: "bold"}} className="text-left">Nom</th>
+                        <th style={{fontWeight: "bold"}} className="text-left">Email</th>
+                        <th style={{fontWeight: "bold"}} className="text-left">Département</th>
                       </tr>
                     </thead>
                     <tbody>
