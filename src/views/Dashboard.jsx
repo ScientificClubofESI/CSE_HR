@@ -46,6 +46,8 @@ import { API_URL } from "../api/api"
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
+import BarChart from "../components/BarChart/BarChart"
+
 import {
   dashboardPanelChart,
   dashboardShippedProductsChart,
@@ -55,203 +57,67 @@ import {
 
 class Dashboard extends React.Component {
   state = {
-    event: 0,
-    design: 0,
-    media: 0,
-    comm: 0,
-    dev: 0,
-    relex: 0,
+    departments: [
+      {
+        "name": "Event",
+        "value": 12
+      },
+      {
+        "name": "Design",
+        "value": 12
+      },
+      {
+        "name": "Comm",
+        "value": 18
+      },
+      {
+        "name": "Multimédia",
+        "value": 7
+      },
+      {
+        "name": "Dev",
+        "value": 2
+      },
+      {
+        "name": "Relex",
+        "value": 23
+      }
+    ],
   }
 
-  setEventData = (amt) => {
-    this.setState({
-      event: this.state.event + amt
-    })
-  }
-
-  setDesignData = (amt) => {
-    this.setState({
-      design: this.state.design + amt
-    })
-  }
-
-  setCommData = (amt) => {
-    this.setState({
-      comm: this.state.comm + amt
-    })
-  }
-
-  setMediaData = (amt) => {
-    this.setState({
-      media: this.state.media + amt
-    })
-  }
-
-  setRelexData = (amt) => {
-    this.setState({
-      relex: this.state.relex + amt
-    })
-  }
-
-  setDevData = (amt) => {
-    this.setState({
-      dev: this.state.dev + amt
-    })
-  }
-
-  getEventStat = async () => {
-    await axios.get(`${API_URL}members/chart/department/event`).then(async (response) => {
-      await this.setEventData(response.data.length)
-    })
-  }
-
-  getDesignStat = async () => {
-    await axios.get(`${API_URL}members/chart/department/design`).then(async (response) => {
-      await this.setDesignData(response.data.length)
-    })
-  }
-
-  getCommStat = async () => {
-    await axios.get(`${API_URL}members/chart/department/comm`).then(async (response) => {
-      await this.setCommData(response.data.length)
-    })
-  }
-
-  getMediaStat = async () => {
-    await axios.get(`${API_URL}members/chart/department/media`).then(async (response) => {
-      await this.setMediaData(response.data.length)
-    })
-  }
-
-  getDevStat = async () => {
-    await axios.get(`${API_URL}members/chart/department/dev`).then(async (response) => {
-      await this.setDevData(response.data.length)
-    })
-  }
-  getRelexStat = async () => {
-    await axios.get(`${API_URL}members/chart/department/relex`).then(async (response) => {
-      await this.setRelexData(response.data.length)
-    })
-  }
-
-  componentWillMount() {
-    this.getEventStat()
-    this.getDesignStat()
-    this.getCommStat()
-    this.getMediaStat()
-    this.getDevStat()
-    this.getRelexStat()
-    console.log(this.state)
-  }
+  //#46b3ff - #02A5DC
 
   render() {
     return (
       <>
         <PanelHeader
-          size="lg"
-          content={
-            <Line
-              data={dashboardPanelChart.data}
-              options={dashboardPanelChart.options}
-            />
-          }
+          size="md"
+
         />
         <div className="content">
           <Row>
-            <Col xs={12} md={4}>
+            <Col xs={12} md={12}>
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">Global Sales</h5>
-                  <CardTitle tag="h4">Shipped Products</CardTitle>
-                  <UncontrolledDropdown>
-                    <DropdownToggle
-                      className="btn-round btn-outline-default btn-icon"
-                      color="default"
-                    >
-                      <i className="now-ui-icons loader_gear" />
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another Action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                      <DropdownItem className="text-danger">
-                        Remove data
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
                 </CardHeader>
                 <CardBody>
-                  <div className="chart-area">
-                    <Line
-                      data={dashboardShippedProductsChart.data}
-                      options={dashboardShippedProductsChart.options}
-                    />
-                  </div>
+                  <BarChart
+                  data={this.state.departments}
+                  title={"Membres par départements"}
+                  color="#46b3ff"
+                   />
                 </CardBody>
                 <CardFooter>
-                  <div className="stats">
-                    <i className="now-ui-icons arrows-1_refresh-69" /> Just
-                    Updated
-                  </div>
                 </CardFooter>
               </Card>
             </Col>
-            <Col xs={12} md={4}>
+            <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">2018 Sales</h5>
-                  <CardTitle tag="h4">All products</CardTitle>
-                  <UncontrolledDropdown>
-                    <DropdownToggle
-                      className="btn-round btn-outline-default btn-icon"
-                      color="default"
-                    >
-                      <i className="now-ui-icons loader_gear" />
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem>Action</DropdownItem>
-                      <DropdownItem>Another Action</DropdownItem>
-                      <DropdownItem>Something else here</DropdownItem>
-                      <DropdownItem className="text-danger">
-                        Remove data
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
                 </CardHeader>
                 <CardBody>
-                  <div className="chart-area">
-                    <Line
-                      data={dashboardAllProductsChart.data}
-                      options={dashboardAllProductsChart.options}
-                    />
-                  </div>
                 </CardBody>
                 <CardFooter>
-                  <div className="stats">
-                    <i className="now-ui-icons arrows-1_refresh-69" /> Just
-                    Updated
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col xs={12} md={4}>
-              <Card className="card-chart">
-                <CardHeader>
-                  <h5 className="card-category">Email Statistics</h5>
-                  <CardTitle tag="h4">24 Hours Performance</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <div className="chart-area">
-                    <Bar
-                      data={dashboard24HoursPerformanceChart.data}
-                      options={dashboard24HoursPerformanceChart.options}
-                    />
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <div className="stats">
-                    <i className="now-ui-icons ui-2_time-alarm" /> Last 7 days
-                  </div>
                 </CardFooter>
               </Card>
             </Col>
