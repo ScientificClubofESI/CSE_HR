@@ -218,7 +218,7 @@ class Dashboard extends React.Component {
             <Col xs={12} md={4}>
               <Card className="card-chart">
                 <CardHeader>
-                  <CardTitle tag="h6">Répartition des membres par départements</CardTitle>
+                  <CardTitle tag="h6">Répartition des membres selon leur ancienneté</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <BarChart
@@ -234,7 +234,7 @@ class Dashboard extends React.Component {
             <Col xs={12} md={8}>
               <Card className="card-chart">
                 <CardHeader>
-                  <CardTitle tag="h6">Répartition des membres selon leur ancienneté</CardTitle>
+                  <CardTitle tag="h6">Répartition des membres par départements</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <DoughnutChart
