@@ -40,20 +40,16 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 
+//API
 import axios from "axios"
 import { API_URL } from "../api/api"
 
 // core components
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 
+//Chart components
 import BarChart from "../components/BarChart/BarChart"
-
-import {
-  dashboardPanelChart,
-  dashboardShippedProductsChart,
-  dashboardAllProductsChart,
-  dashboard24HoursPerformanceChart
-} from "variables/charts.jsx";
+import DoughnutChart from "../components/DoughnutChart/DoughnutChart"
 
 class Dashboard extends React.Component {
   state = {
@@ -83,6 +79,20 @@ class Dashboard extends React.Component {
         "value": null
       }
     ],
+    statuts: [
+      {
+        "name": "Newbie",
+        "value": null
+      },
+      {
+        "name": "Ancien",
+        "value": null
+      },
+      {
+        "name": "Alumni",
+        "value": null
+      }
+    ]
   }
 
   async refreshMembers() {
@@ -146,6 +156,36 @@ class Dashboard extends React.Component {
         })
       })
     })
+    axios.get(`${API_URL}members/old`).then(async (response) => {
+      await this.setState({
+        status: this.state.statuts.map((statut) => {
+          if (statut.name === "Ancien") {
+            statut.value = response.data.length
+          }
+          return statut
+        })
+      })
+    })
+    axios.get(`${API_URL}members/alumni`).then(async (response) => {
+      await this.setState({
+        status: this.state.statuts.map((statut) => {
+          if (statut.name === "Alumni") {
+            statut.value = response.data.length
+          }
+          return statut
+        })
+      })
+    })
+    axios.get(`${API_URL}members/newbie`).then(async (response) => {
+      await this.setState({
+        statuts: this.state.statuts.map((statut) => {
+          if (statut.name === "Newbie") {
+            statut.value = response.data.length
+          }
+          return statut
+        })
+      })
+    })
   }
 
   componentWillMount() {
@@ -154,6 +194,7 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     this.refreshMembers()
+    console.log(this.state)
   }
 
   //#46b3ff - #02A5DC
@@ -167,9 +208,10 @@ class Dashboard extends React.Component {
         />
         <div className="content">
           <Row>
-            <Col xs={12} md={12}>
+            <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
+                  <CardTitle tag="h6">Répartition des membres par départements</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <BarChart
@@ -185,221 +227,17 @@ class Dashboard extends React.Component {
             <Col xs={12} md={6}>
               <Card className="card-chart">
                 <CardHeader>
+                <CardTitle tag="h6">Répartition des membres selon leur ancienneté</CardTitle>
                 </CardHeader>
                 <CardBody>
+                  <DoughnutChart
+                    data={this.state.statuts}
+                    title={"Membres par ancienneté"}
+                    colors={['#70cad1', '#b08ea2', '#BBB6DF']}
+                  />
                 </CardBody>
                 <CardFooter>
                 </CardFooter>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={6}>
-              <Card className="card-tasks">
-                <CardHeader>
-                  <h5 className="card-category">Backend Development</h5>
-                  <CardTitle tag="h4">Tasks</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <div className="table-full-width table-responsive">
-                    <Table>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultChecked type="checkbox" />
-                                <span className="form-check-sign" />
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td className="text-left">
-                            Sign contract for "What are conference organizers
-                            afraid of?"
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              className="btn-round btn-icon btn-icon-mini btn-neutral"
-                              color="info"
-                              id="tooltip731609871"
-                              type="button"
-                            >
-                              <i className="now-ui-icons ui-2_settings-90" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip731609871"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                            <Button
-                              className="btn-round btn-icon btn-icon-mini btn-neutral"
-                              color="danger"
-                              id="tooltip923217206"
-                              type="button"
-                            >
-                              <i className="now-ui-icons ui-1_simple-remove" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip923217206"
-                            >
-                              Remove
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input type="checkbox" />
-                                <span className="form-check-sign" />
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td className="text-left">
-                            Lines From Great Russian Literature? Or E-mails From
-                            My Boss?
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              className="btn-round btn-icon btn-icon-mini btn-neutral"
-                              color="info"
-                              id="tooltip907509347"
-                              type="button"
-                            >
-                              <i className="now-ui-icons ui-2_settings-90" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip907509347"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                            <Button
-                              className="btn-round btn-icon btn-icon-mini btn-neutral"
-                              color="danger"
-                              id="tooltip496353037"
-                              type="button"
-                            >
-                              <i className="now-ui-icons ui-1_simple-remove" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip496353037"
-                            >
-                              Remove
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultChecked type="checkbox" />
-                                <span className="form-check-sign" />
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td className="text-left">
-                            Flooded: One year later, assessing what was lost and
-                            what was found when a ravaging rain swept through
-                            metro Detroit
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              className="btn-round btn-icon btn-icon-mini btn-neutral"
-                              color="info"
-                              id="tooltip326247652"
-                              type="button"
-                            >
-                              <i className="now-ui-icons ui-2_settings-90" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip326247652"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                            <Button
-                              className="btn-round btn-icon btn-icon-mini btn-neutral"
-                              color="danger"
-                              id="tooltip389516969"
-                              type="button"
-                            >
-                              <i className="now-ui-icons ui-1_simple-remove" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip389516969"
-                            >
-                              Remove
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </div>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="now-ui-icons loader_refresh spin" /> Updated 3
-                    minutes ago
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col xs={12} md={6}>
-              <Card>
-                <CardHeader>
-                  <h5 className="card-category">All Persons List</h5>
-                  <CardTitle tag="h4">Employees Stats</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Table responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th className="text-right">Salary</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Dakota Rice</td>
-                        <td>Niger</td>
-                        <td>Oud-Turnhout</td>
-                        <td className="text-right">$36,738</td>
-                      </tr>
-                      <tr>
-                        <td>Minerva Hooper</td>
-                        <td>Curaçao</td>
-                        <td>Sinaai-Waas</td>
-                        <td className="text-right">$23,789</td>
-                      </tr>
-                      <tr>
-                        <td>Sage Rodriguez</td>
-                        <td>Netherlands</td>
-                        <td>Baileux</td>
-                        <td className="text-right">$56,142</td>
-                      </tr>
-                      <tr>
-                        <td>Doris Greene</td>
-                        <td>Malawi</td>
-                        <td>Feldkirchen in Kärnten</td>
-                        <td className="text-right">$63,542</td>
-                      </tr>
-                      <tr>
-                        <td>Mason Porter</td>
-                        <td>Chile</td>
-                        <td>Gloucester</td>
-                        <td className="text-right">$78,615</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </CardBody>
               </Card>
             </Col>
           </Row>
