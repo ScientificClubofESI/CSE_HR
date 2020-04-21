@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
-import {Chart} from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 
 export class BarChart extends Component {
     constructor(props) {
         super(props);
         this.chartRef = React.createRef()
+    }
+
+    componentDidUpdate() {
+        this.myChart.data.labels = this.props.data.map(d => d.name);
+        this.myChart.data.datasets[0].data = this.props.data.map(d => d.value);
+        this.myChart.update();
     }
 
     componentDidMount() {

@@ -60,29 +60,100 @@ class Dashboard extends React.Component {
     departments: [
       {
         "name": "Event",
-        "value": 12
+        "value": null
       },
       {
         "name": "Design",
-        "value": 12
+        "value": null
       },
       {
         "name": "Comm",
-        "value": 18
+        "value": null
       },
       {
         "name": "Multimédia",
-        "value": 7
+        "value": null
       },
       {
         "name": "Dev",
-        "value": 2
+        "value": null
       },
       {
         "name": "Relex",
-        "value": 23
+        "value": null
       }
     ],
+  }
+
+  async refreshMembers() {
+    axios.get(`${API_URL}members/chart/department/design`).then(async (response) => {
+      await this.setState({
+        departments: this.state.departments.map((department) => {
+          if (department.name === "Design") {
+            department.value = response.data.length
+          }
+          return department
+        })
+      })
+    })
+    axios.get(`${API_URL}members/chart/department/event`).then(async (response) => {
+      await this.setState({
+        departments: this.state.departments.map((department) => {
+          if (department.name === "Event") {
+            department.value = response.data.length
+          }
+          return department
+        })
+      })
+    })
+    axios.get(`${API_URL}members/chart/department/comm`).then(async (response) => {
+      await this.setState({
+        departments: this.state.departments.map((department) => {
+          if (department.name === "Comm") {
+            department.value = response.data.length
+          }
+          return department
+        })
+      })
+    })
+    axios.get(`${API_URL}members/chart/department/media`).then(async (response) => {
+      await this.setState({
+        departments: this.state.departments.map((department) => {
+          if (department.name === "Multimédia") {
+            department.value = response.data.length
+          }
+          return department
+        })
+      })
+    })
+    axios.get(`${API_URL}members/chart/department/dev`).then(async (response) => {
+      await this.setState({
+        departments: this.state.departments.map((department) => {
+          if (department.name === "Dev") {
+            department.value = response.data.length
+          }
+          return department
+        })
+      })
+    })
+    axios.get(`${API_URL}members/chart/department/relex`).then(async (response) => {
+      await this.setState({
+        departments: this.state.departments.map((department) => {
+          if (department.name === "Relex") {
+            department.value = response.data.length
+          }
+          return department
+        })
+      })
+    })
+  }
+
+  componentWillMount() {
+    this.refreshMembers()
+  }
+
+  componentDidMount() {
+    this.refreshMembers()
   }
 
   //#46b3ff - #02A5DC
@@ -102,10 +173,10 @@ class Dashboard extends React.Component {
                 </CardHeader>
                 <CardBody>
                   <BarChart
-                  data={this.state.departments}
-                  title={"Membres par départements"}
-                  color="#46b3ff"
-                   />
+                    data={this.state.departments}
+                    title={"Membres par département"}
+                    color="#46b3ff"
+                  />
                 </CardBody>
                 <CardFooter>
                 </CardFooter>
