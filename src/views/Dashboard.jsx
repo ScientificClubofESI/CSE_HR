@@ -205,25 +205,25 @@ class Dashboard extends React.Component {
         <PanelHeader
           size="md"
           content={
-            <div style={{marginLeft:"5%"}}>
-              <br/>
-            <h1 style={{color: "#EDDF0C", fontWeight: "bold", display:"inline"}}>CSE HR, {" "}</h1>
-            <span style={{color: "#FFFFFF", fontSize: "20px"}}>L'outil d'organisation des ressources humaines du CSE</span>
+            <div style={{ marginLeft: "5%" }}>
+              <br />
+              <h1 style={{ color: "#EDDF0C", fontWeight: "bold", display: "inline" }}>CSE HR, {" "}</h1>
+              <span style={{ color: "#FFFFFF", fontSize: "20px" }}>L'outil d'organisation des ressources humaines du CSE</span>
             </div>
-            
+
           }
         />
         <div className="content">
           <Row>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={4}>
               <Card className="card-chart">
                 <CardHeader>
                   <CardTitle tag="h6">Répartition des membres par départements</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <BarChart
-                    data={this.state.departments}
-                    title={"Membres par département"}
+                    data={this.state.statuts}
+                    title={"Membres par ancienneté"}
                     color="#46b3ff"
                   />
                 </CardBody>
@@ -231,16 +231,16 @@ class Dashboard extends React.Component {
                 </CardFooter>
               </Card>
             </Col>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={8}>
               <Card className="card-chart">
                 <CardHeader>
-                <CardTitle tag="h6">Répartition des membres selon leur ancienneté</CardTitle>
+                  <CardTitle tag="h6">Répartition des membres selon leur ancienneté</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <DoughnutChart
-                    data={this.state.statuts}
-                    title={"Membres par ancienneté"}
-                    colors={['#70cad1', '#b08ea2', '#BBB6DF']}
+                    data={this.state.departments}
+                    title={"Membres par département"}
+                    colors={['#a8e0ff', '#8ee3f5', '#70cad1', '#3e517a', '#b08ea2', '#BBB6DF']}
                   />
                 </CardBody>
                 <CardFooter>
