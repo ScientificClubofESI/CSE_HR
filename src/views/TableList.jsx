@@ -195,6 +195,7 @@ class RegularTables extends React.Component {
     if (deleteMember) {
       axios.delete(`${API_URL}members/delete/` + member._id)
         .then((response) => {
+          alert("Le membre a été supprimé !")
           this.refreshMembers()
         })
     } else {
@@ -211,7 +212,6 @@ class RegularTables extends React.Component {
   async handleChange(e) {
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
     let tab = []
-    console.log("Before switch : " + this.state.cpt)
     switch (e.target.name) {
       case "Event":
         if (value) {
@@ -373,6 +373,7 @@ class RegularTables extends React.Component {
           }
           axios.get(`${API_URL}members/department/relex`).then((response) => {
             tab = response.data
+            console.log(response.data)
             this.setState({
               filterData: this.state.filterData.concat(tab)
             })

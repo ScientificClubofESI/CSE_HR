@@ -208,7 +208,7 @@ class Dashboard extends React.Component {
             <div style={{ marginLeft: "5%" }}>
               <br />
               <h1 style={{ color: "#EDDF0C", fontWeight: "bold", display: "inline" }}>CSE HR, {" "}</h1>
-              <span style={{ color: "#FFFFFF", fontSize: "20px" }}>L'outil d'organisation des ressources humaines du CSE</span>
+              <span style={{ color: "#FFFFFF", fontSize: "20px" }}>l'outil d'organisation des ressources humaines du CSE</span>
             </div>
 
           }
