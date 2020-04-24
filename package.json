@@ -8,6 +8,7 @@
     "axios": "^0.19.2",
     "bootstrap": "4.3.1",
     "chart.js": "2.8.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "express-favicon": "^2.0.1",
     "formik": "^2.1.4",
@@ -31,8 +32,9 @@
     "tabletop": "^1.6.2"
   },
   "scripts": {
-    "start": "node server.js",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    //"build": "react-scripts build",
+    "build:staging": "env-cmd -f .env.staging npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
