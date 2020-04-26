@@ -186,7 +186,7 @@ class User extends React.Component {
                       </Col>
                       <Col className="pl-1" md="6">
                         <FormGroup>
-                          <h6>Statu</h6>
+                          <h6>Statut</h6>
                           <Input
                             type="select"
                             defaultValue="Newbie"

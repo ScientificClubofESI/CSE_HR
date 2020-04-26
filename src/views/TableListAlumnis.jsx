@@ -408,7 +408,7 @@ class RegularTables extends React.Component {
             <td className="text-left">{member.prenom}</td>
             <td className="text-left">{member.nom}</td>
             <td className="text-left">{member.email}</td>
-            <td className="text-left">{member.departement}</td>
+            <td className="text-left">{member.responsabilite}</td>
             <td style={{ cursor: "pointer" }}
               onClick={this.getMemberData.bind(this, member)}
             >
@@ -434,7 +434,7 @@ class RegularTables extends React.Component {
             <td className="text-left">{member.prenom}</td>
             <td className="text-left">{member.nom}</td>
             <td className="text-left">{member.email}</td>
-            <td className="text-left">{member.departement}</td>
+            <td className="text-left">{member.responsabilite}</td>
             <td style={{ cursor: "pointer" }}
               onClick={this.getMemberData.bind(this, member)}
             >
@@ -486,7 +486,7 @@ class RegularTables extends React.Component {
             </Row>
             <Row>
               <Col xs={6}>
-                <h6>Statu</h6>
+                <h6>Statut</h6>
                 <p>{this.state.memberData.statu}</p>
               </Col>
               <Col xs={6}>
@@ -593,7 +593,7 @@ class RegularTables extends React.Component {
               <Row >
                 <Col xs={6}>
                   <FormGroup>
-                    <h6>Statu</h6>
+                    <h6>Statut</h6>
                     <Input
                       type="select"
                       defaultValue={this.state.editMemberData.statu}
@@ -726,7 +726,7 @@ class RegularTables extends React.Component {
                         <Collapse isOpen={this.state.toggleImport}>
                           <Card>
                             <CardBody>
-                              <Label>Veuillez entre le lien du sheet.</Label>
+                              <Label>Veuillez entre le id du sheet, ce dernier doit être partager avec node-google-sheets@cse-hr-1585758185662.iam.gserviceaccount.com</Label>
                               <Input
                                 placeholder="Lien du sheet (ID uniquement)"
                                 type="text"
@@ -751,7 +751,7 @@ class RegularTables extends React.Component {
                         <Collapse isOpen={this.state.toggleExport}>
                           <Card>
                             <CardBody>
-                              <Label>Veuillez entre le lien du sheet.</Label>
+                              <Label>Veuillez entre le id du sheet, ce dernier doit être partager avec node-google-sheets@cse-hr-1585758185662.iam.gserviceaccount.com</Label>
                               <Input
                                 placeholder="Lien du sheet (ID uniquement)"
                                 type="text"
@@ -778,7 +778,7 @@ class RegularTables extends React.Component {
                         <th style={{fontWeight: "bold"}} className="text-left">Prénom</th>
                         <th style={{fontWeight: "bold"}} className="text-left">Nom</th>
                         <th style={{fontWeight: "bold"}} className="text-left">Email</th>
-                        <th style={{fontWeight: "bold"}} className="text-left">Département</th>
+                        <th style={{fontWeight: "bold"}} className="text-left">Ex-Résponsabilité</th>
                       </tr>
                     </thead>
                     <tbody>
