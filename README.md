@@ -16,21 +16,12 @@ This project was designed to manage the human resources of the CSE Scientific Cl
 * [Quick Start](#quick-start)
 * [Documentation](#documentation)
 * [File Structure](#file-structure)
-* [Browser Support](#browser-support)
-* [Resources](#resources)
-* [Reporting Issues](#reporting-issues)
-* [Technical Support or Questions](#technical-support-or-questions)
-* [Licensing](#licensing)
-* [Useful Links](#useful-links)
 
 ## Demo
 
-| Dashboard | User Profile | Tables | Maps | Notification |
+| Dashboard | Add members | Tables |  |
 | --- | --- | --- | --- | --- |
-| [![Start page](./src/assets/github/dashboard.jpg)](https://demos.creative-tim.com/now-ui-dashboard-react/#/admin/dashboard) | [![User profile page](./src/assets/github/user_profile.jpg)](https://demos.creative-tim.com/now-ui-dashboard-react/#/admin/user) | [![Tables page ](./src/assets/github/tables.jpg)](https://demos.creative-tim.com/now-ui-dashboard-react/#/admin/table) | [![Maps Page](./src/assets/github/maps.jpg)](https://demos.creative-tim.com/now-ui-dashboard-react/#/admin/maps) | [![Notification page](./src/assets/github/notification.jpg)](https://demos.creative-tim.com/now-ui-dashboard-react/#/admin/notifications)
-
-[View More](https://demos.creative-tim.com/now-ui-dashboard-react/#/admin/dashboard).
-
+| [![Start page](./src/assets/github/stats.png)] | [![User profile page](./src/assets/github/add_user.png)] | [![Tables page ](./src/assets/github/tables.png)] | [![Import/Export/Filter Data](./src/assets/github/import_export_filter.png)]
 
 ## Quick start
 
@@ -62,6 +53,8 @@ CSE HR
 │   ├── index.html
 │   └── manifest.json
 └── src
+    ├──api
+    |   ├── api.js
     ├── assets
     │   ├── css
     │   │   └── demo.css
@@ -118,9 +111,3 @@ CSE HR
         └── UserPage
             └── UserPage.jsx
 ```
-
-## Browser Support
-
-At present, we officially aim to support the last two versions of the following browsers:
-
-<img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/chrome.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/firefox.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/edge.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/safari.png" width="64" height="64"> <img src="https://s3.amazonaws.com/creativetim_bucket/github/browser/opera.png" width="64" height="64">
