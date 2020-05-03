@@ -20,13 +20,13 @@ This project was designed to manage the human resources of the CSE Scientific Cl
 ## Demo
 
 | Dashboard | 
-| [![Start page](./src/assets/github/stats.png)] |
+![Start page](./src/assets/github/stats.png)
 | Add members | 
-| [![User profile page](./src/assets/github/add_user.png)] |
+![Add user page](./src/assets/github/add_user.png)]
 | Tables |  
-| [![Tables page ](./src/assets/github/tables.png)] |
+![Tables page ](./src/assets/github/tables.png)
 |Import/Export/Filter Data | 
-| [![Import/Export/Filter Data](./src/assets/github/import_export_filter.png)] |
+![Import/Export/Filter Data](./src/assets/github/import_export_filter.png)
 
 ## Quick start
 
