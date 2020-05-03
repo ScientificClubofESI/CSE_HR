@@ -96,7 +96,7 @@ class Dashboard extends React.Component {
   }
 
   async refreshMembers() {
-    axios.get(`${API_URL}members/chart/department/design`).then(async (response) => {
+    axios.get(`${API_URL}members/department/design`).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Design") {
@@ -106,7 +106,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/chart/department/event`).then(async (response) => {
+    axios.get(`${API_URL}members/department/event`).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Event") {
@@ -116,7 +116,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/chart/department/comm`).then(async (response) => {
+    axios.get(`${API_URL}members/department/comm`).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Comm") {
@@ -126,7 +126,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/chart/department/media`).then(async (response) => {
+    axios.get(`${API_URL}members/department/media`).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Multimédia") {
@@ -136,7 +136,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/chart/department/dev`).then(async (response) => {
+    axios.get(`${API_URL}members/department/dev`).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Dev") {
@@ -146,7 +146,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/chart/department/relex`).then(async (response) => {
+    axios.get(`${API_URL}members/department/relex`).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Relex") {
