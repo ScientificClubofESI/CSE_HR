@@ -1,8 +1,4 @@
-# [Now UI Dashboard React](https://demos.creative-tim.com/now-ui-dashboard-react/#/dashboard) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https%3A%2F%2Fdemos.creative-tim.com%2Fnow-ui-dashboard-react%2F%23%2Fdashboard&text=Now%20UI%20Dashboard%20React%20by%20Creative%20Tim%20%7C%20Free%20React%20Admin%20Template&original_referer=http%3A%2F%2Flocalhost%3A3000%2Fdashboard&via=creativetim&hashtags=react%2Cbootstrap)
-
-
-
-![version](https://img.shields.io/badge/version-1.2.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/now-ui-dashboard-react.svg?maxAge=2592000)]() [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/now-ui-dashboard-react.svg?maxAge=2592000)]() [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)
+# [CSE HR]
 
 ![Product Gif](./now-ui-dashboard-react.gif)
 
@@ -16,16 +12,17 @@ This project was designed to manage the human resources of the CSE Scientific Cl
 * [Quick Start](#quick-start)
 * [Documentation](#documentation)
 * [File Structure](#file-structure)
+* [Contibuting](#contributing)
 
 ## Demo
 
 | Dashboard | 
 ![Start page](./src/assets/github/stats.png)
 | Add members | 
-![Add user page](./src/assets/github/add_user.png)]
+![Add user page](./src/assets/github/add_user.png)
 | Tables |  
 ![Tables page ](./src/assets/github/tables.png)
-|Import/Export/Filter Data | 
+| Import/Export/Filter Data | 
 ![Import/Export/Filter Data](./src/assets/github/import_export_filter.png)
 
 ## Quick start
@@ -116,3 +113,6 @@ CSE HR
         └── UserPage
             └── UserPage.jsx
 ```
+
+## Contributing
+Do you have a feature request, bug report, or patch? Great! See [CONTRIBUTING.md](https://github.com/BillelBenoudjit/CSE_HR/blob/master/CONTRIBUTING.md) for information on what you can do about that. Contributions to LaraHack are welcome and appreciated !
