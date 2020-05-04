@@ -51,6 +51,8 @@ import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 import BarChart from "../components/BarChart/BarChart"
 import DoughnutChart from "../components/DoughnutChart/DoughnutChart"
 
+const token = localStorage.getItem("tokens")
+
 class Dashboard extends React.Component {
   state = {
     departments: [
@@ -96,7 +98,7 @@ class Dashboard extends React.Component {
   }
 
   async refreshMembers() {
-    axios.get(`${API_URL}members/department/design`).then(async (response) => {
+    axios.get(`${API_URL}members/department/design`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Design") {
@@ -106,7 +108,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/department/event`).then(async (response) => {
+    axios.get(`${API_URL}members/department/event`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Event") {
@@ -116,7 +118,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/department/comm`).then(async (response) => {
+    axios.get(`${API_URL}members/department/comm`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Comm") {
@@ -126,7 +128,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/department/media`).then(async (response) => {
+    axios.get(`${API_URL}members/department/media`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Multimédia") {
@@ -136,7 +138,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/department/dev`).then(async (response) => {
+    axios.get(`${API_URL}members/department/dev`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Dev") {
@@ -146,7 +148,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/department/relex`).then(async (response) => {
+    axios.get(`${API_URL}members/department/relex`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         departments: this.state.departments.map((department) => {
           if (department.name === "Relex") {
@@ -156,7 +158,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/old`).then(async (response) => {
+    axios.get(`${API_URL}members/old`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         status: this.state.statuts.map((statut) => {
           if (statut.name === "Ancien") {
@@ -166,7 +168,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/alumni`).then(async (response) => {
+    axios.get(`${API_URL}members/alumni`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         status: this.state.statuts.map((statut) => {
           if (statut.name === "Alumni") {
@@ -176,7 +178,7 @@ class Dashboard extends React.Component {
         })
       })
     })
-    axios.get(`${API_URL}members/newbie`).then(async (response) => {
+    axios.get(`${API_URL}members/newbie`, { headers: {"Authorization" : `${token}`} }).then(async (response) => {
       await this.setState({
         statuts: this.state.statuts.map((statut) => {
           if (statut.name === "Newbie") {

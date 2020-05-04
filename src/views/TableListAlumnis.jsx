@@ -51,6 +51,8 @@ import Formsy from 'formsy-react';
 //API url
 import { API_URL } from '../api/api'
 
+const token = localStorage.getItem("tokens")
+
 class RegularTables extends React.Component {
   state = {
     members: [],
@@ -88,7 +90,7 @@ class RegularTables extends React.Component {
   async importSheetData(event) {
     const link = this.state.sheetLink
     event.preventDefault()
-    axios.post(`${API_URL}members/import`, { link })
+    axios.post(`${API_URL}members/import`, { link }, { headers: {"Authorization" : `${token}`} })
       .then((response) => {
         console.log(response.data)
         alert(response.data.members.length + " membres ont été ajoutés !")
@@ -102,7 +104,7 @@ class RegularTables extends React.Component {
     event.preventDefault()
     console.log(members)
     console.log(link)
-    axios.post(`${API_URL}members/export`, { link, members })
+    axios.post(`${API_URL}members/export`, { link, members }, { headers: {"Authorization" : `${token}`} })
       .then((response) => {
         alert(response.data.msg)
       })
@@ -122,7 +124,7 @@ class RegularTables extends React.Component {
   }
 
   refreshMembers() {
-    axios.get(`${API_URL}members/alumni`).then((response) => {
+    axios.get(`${API_URL}members/alumni`, { headers: {"Authorization" : `${token}`} }).then((response) => {
       this.setState({
         members: response.data
       })
@@ -183,7 +185,7 @@ class RegularTables extends React.Component {
 
   updateMember() {
     const member = this.state.editMemberData
-    axios.put(`${API_URL}members/edit/` + member._id, { member })
+    axios.put(`${API_URL}members/edit/` + member._id, { member }, { headers: {"Authorization" : `${token}`} })
       .then(() => {
         this.setState({
           editMemberModal: false,
@@ -196,7 +198,7 @@ class RegularTables extends React.Component {
   deleteMemberData(member) {
     let deleteMember = window.confirm("Voulez vous vraiment supprimer : " + member.prenom + " " + member.nom + " ?");
     if (deleteMember) {
-      axios.delete(`${API_URL}members/delete/` + member._id)
+      axios.delete(`${API_URL}members/delete/` + member._id, { headers: {"Authorization" : `${token}`} })
         .then((response) => {
           this.refreshMembers()
         })
@@ -224,7 +226,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/alumni/department/event`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/event`, { headers: {"Authorization" : `${token}`} }).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -254,7 +256,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/alumni/department/design`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/design`, { headers: {"Authorization" : `${token}`} }).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -284,7 +286,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/alumni/department/comm`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/comm`, { headers: {"Authorization" : `${token}`} }).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -314,7 +316,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/alumni/department/media`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/media`, { headers: {"Authorization" : `${token}`} }).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -344,7 +346,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/alumni/department/dev`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/dev`, { headers: {"Authorization" : `${token}`} }).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)
@@ -374,7 +376,7 @@ class RegularTables extends React.Component {
               filter: true
             })
           }
-          axios.get(`${API_URL}members/alumni/department/relex`).then((response) => {
+          axios.get(`${API_URL}members/alumni/department/relex`, { headers: {"Authorization" : `${token}`} }).then((response) => {
             tab = response.data
             this.setState({
               filterData: this.state.filterData.concat(tab)

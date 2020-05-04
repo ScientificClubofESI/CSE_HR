@@ -43,6 +43,8 @@ import Formsy from 'formsy-react';
 import PanelHeader from "components/PanelHeader/PanelHeader.jsx";
 import { API_URL } from "api/api";
 
+const token = localStorage.getItem("tokens")
+
 class User extends React.Component {
   state = {
     memberData: {
@@ -65,7 +67,7 @@ class User extends React.Component {
     }
     let member = this.state.memberData
     console.log(member)
-    axios.post(`${API_URL}members/add`, { member })
+    axios.post(`${API_URL}members/add`, { member }, { headers: {"Authorization" : `${token}`} })
       .then((response) => {
         alert(response.data.member.prenom + " " + response.data.member.nom + " a été ajouté !")
       })
