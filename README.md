@@ -115,4 +115,4 @@ CSE HR
 ```
 
 ## Contributing
-Do you have a feature request, bug report, or patch? Great! See [CONTRIBUTING.md](https://github.com/BillelBenoudjit/CSE_HR/blob/master/CONTRIBUTING.md) for information on what you can do about that. Contributions to LaraHack are welcome and appreciated !
+Do you have a feature request, bug report, or patch? Great! See [CONTRIBUTING.md](https://github.com/BillelBenoudjit/CSE_HR/blob/master/CONTRIBUTING.md) for information on what you can do about that. Contributions to CSE HR are welcome and appreciated !
